@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU Q4 Weekly Report</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-hover: #253349;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --on-track: #22c55e;
+  --on-track-bg: rgba(34,197,94,0.12);
+  --at-risk: #f59e0b;
+  --at-risk-bg: rgba(245,158,11,0.12);
+  --blocked: #ef4444;
+  --blocked-bg: rgba(239,68,68,0.12);
+  --launched: #8b5cf6;
+  --launched-bg: rgba(139,92,246,0.12);
+  --not-started: #64748b;
+  --not-started-bg: rgba(100,116,139,0.12);
+  --pushed: #6b7280;
+  --charlotte: #3b82f6;
+  --edx: #f97316;
+  --hen: #22c55e;
+  --affiliates: #a855f7;
+  --partnerships: #eab308;
+  --product: #6b7280;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+.container { max-width:1280px; margin:0 auto; padding:24px; }
+
+/* Header */
+.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
+.header h1 { font-size:24px; font-weight:700; letter-spacing:-0.5px; }
+.header .subtitle { color:var(--text-muted); font-size:14px; margin-top:4px; }
+.header-right { display:flex; gap:12px; align-items:center; }
+.freeze-badge { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#fca5a5; padding:6px 14px; border-radius:8px; font-size:13px; font-weight:500; }
+
+/* Stats bar */
+.stats-bar { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-bottom:28px; }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center; }
+.stat-card .value { font-size:28px; font-weight:700; }
+.stat-card .label { font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+
+/* Team nav */
+.team-nav { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.team-btn { background:var(--surface); border:1px solid var(--border); color:var(--text-muted); padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; transition:all 0.15s; }
+.team-btn:hover { border-color:var(--accent); color:var(--text); }
+.team-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.team-btn .count { opacity:0.7; margin-left:4px; }
+
+/* Controls */
+.controls { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+.search-box { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 14px; border-radius:8px; font-size:14px; width:240px; }
+.search-box::placeholder { color:var(--text-muted); }
+.filter-select { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font-size:13px; cursor:pointer; }
+.view-toggle { display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.view-toggle button { background:var(--surface); border:none; color:var(--text-muted); padding:8px 16px; font-size:13px; cursor:pointer; }
+.view-toggle button.active { background:var(--accent); color:#fff; }
+.filter-count { color:var(--text-muted); font-size:13px; margin-left:auto; }
+
+/* Table */
+.table-wrap { overflow-x:auto; margin-bottom:32px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { background:var(--surface); color:var(--text-muted); text-transform:uppercase; font-size:11px; letter-spacing:0.5px; padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; position:sticky; top:0; z-index:2; }
+thead th:hover { color:var(--text); }
+thead th .sort-icon { margin-left:4px; opacity:0.4; }
+thead th.sorted .sort-icon { opacity:1; }
+tbody tr { border-bottom:1px solid var(--border); transition:background 0.1s; }
+tbody tr:hover { background:var(--surface-hover); }
+tbody tr.expanded { background:var(--surface); }
+td { padding:10px 14px; vertical-align:top; }
+td.name-cell { font-weight:500; max-width:240px; }
+td.name-cell .init-name { cursor:pointer; }
+td.name-cell .init-name:hover { color:var(--accent); }
+
+/* Status/phase pills */
+.pill { display:inline-block; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; white-space:nowrap; }
+.pill-on-track { background:var(--on-track-bg); color:var(--on-track); }
+.pill-at-risk { background:var(--at-risk-bg); color:var(--at-risk); }
+.pill-blocked { background:var(--blocked-bg); color:var(--blocked); }
+.pill-launched { background:var(--launched-bg); color:var(--launched); }
+.pill-not-started { background:var(--not-started-bg); color:var(--not-started); }
+
+/* Team dot */
+.team-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+/* Expanded detail */
+.detail-row td { padding:0; }
+.detail-content { padding:16px 14px 16px 48px; display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px; }
+.detail-section h4 { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:8px; }
+.detail-section p, .detail-section li { color:var(--text); margin-bottom:4px; }
+.detail-section ul { list-style:none; padding:0; }
+.detail-section ul li::before { content:"→ "; color:var(--accent); }
+.detail-links a { color:var(--accent); text-decoration:none; margin-right:16px; font-size:12px; }
+.detail-links a:hover { text-decoration:underline; }
+
+/* Milestone bar */
+.milestone-bar { display:flex; gap:4px; align-items:center; margin-top:8px; }
+.ms-dot { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
+.ms-done { background:var(--on-track); color:#fff; }
+.ms-pending { background:var(--border); color:var(--text-muted); }
+.ms-na { background:transparent; border:1px dashed var(--border); color:var(--text-muted); }
+
+/* Gantt view */
+.gantt-container { margin-bottom:32px; }
+.gantt-row { display:grid; grid-template-columns:240px 1fr; align-items:center; border-bottom:1px solid var(--border); min-height:36px; }
+.gantt-label { padding:8px 14px; font-size:13px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gantt-track { position:relative; height:24px; margin:4px 0; }
+.gantt-bar { position:absolute; height:100%; border-radius:4px; min-width:4px; }
+.gantt-header { display:grid; grid-template-columns:240px 1fr; border-bottom:2px solid var(--border); padding-bottom:8px; margin-bottom:4px; }
+.gantt-header .label { font-size:11px; text-transform:uppercase; color:var(--text-muted); padding:0 14px; }
+.gantt-weeks { display:flex; justify-content:space-between; padding:0 4px; }
+.gantt-weeks span { font-size:10px; color:var(--text-muted); }
+.gantt-freeze { position:absolute; background:rgba(239,68,68,0.08); border-left:1px dashed rgba(239,68,68,0.4); border-right:1px dashed rgba(239,68,68,0.4); top:0; bottom:0; z-index:1; }
+.gantt-today { position:absolute; width:2px; background:var(--accent); top:0; bottom:0; z-index:2; }
+
+/* Launched/pushed bucket */
+.bucket { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:24px; }
+.bucket h3 { font-size:14px; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.bucket-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:10px; }
+.bucket-card { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; }
+.bucket-card .card-name { font-weight:500; font-size:13px; margin-bottom:4px; }
+.bucket-card .card-meta { font-size:11px; color:var(--text-muted); }
+
+/* Auto-interpreted tag */
+.auto-tag { background:rgba(168,85,247,0.15); color:#c084fc; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:600; margin-left:6px; vertical-align:middle; }
+
+/* Print */
+@media print {
+  body { background:#fff; color:#000; }
+  .controls, .team-nav, .header-right, .view-toggle { display:none; }
+  .stat-card, .bucket, table { border-color:#ddd; }
+  .stat-card { background:#f9f9f9; }
+  .container { max-width:100%; padding:12px; }
+  table { font-size:11px; }
+  .pill { border:1px solid currentColor; }
+}
+
+/* Responsive */
+@media (max-width:768px) {
+  .stats-bar { grid-template-columns:repeat(3, 1fr); }
+  .detail-content { grid-template-columns:1fr; }
+  .search-box { width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="header">
+    <div>
+      <h1>EDU Q4 Weekly Report</h1>
+      <div class="subtitle" id="reportWeek"></div>
+    </div>
+    <div class="header-right">
+      <div class="freeze-badge" id="freezeBadge"></div>
+    </div>
+  </div>
+
+  <div class="stats-bar" id="statsBar"></div>
+  <div class="team-nav" id="teamNav"></div>
+
+  <div class="controls">
+    <input type="text" class="search-box" id="searchBox" placeholder="Search initiatives...">
+    <select class="filter-select" id="statusFilter">
+      <option value="">All Statuses</option>
+      <option value="ON TRACK">On Track</option>
+      <option value="AT RISK">At Risk</option>
+      <option value="BLOCKED">Blocked</option>
+      <option value="NOT STARTED">Not Started</option>
+    </select>
+    <select class="filter-select" id="phaseFilter">
+      <option value="">All Phases</option>
+      <option value="IN TECH">In Tech</option>
+      <option value="NOT STARTED">Not Started</option>
+    </select>
+    <div class="view-toggle">
+      <button class="active" data-view="table" onclick="setView('table')">Table</button>
+      <button data-view="gantt" onclick="setView('gantt')">Timeline</button>
+    </div>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+
+  <div id="tableView" class="table-wrap"></div>
+  <div id="ganttView" class="gantt-container" style="display:none"></div>
+
+  <div id="launchedBucket"></div>
+  <div id="pushedBucket"></div>
+</div>
+
+<script>
+let DATA = null;
+let currentTeam = 'all';
+let currentView = 'table';
+let sortCol = 'team';
+let sortAsc = true;
+let expandedRows = new Set();
+
+async function init() {
+  try {
+    const resp = await fetch('data/roadmap.json');
+    DATA = await resp.json();
+  } catch(e) {
+    // Fallback: try inline
+    document.getElementById('app').innerHTML = '<p style="color:var(--at-risk);padding:40px">Could not load roadmap.json. Make sure data/roadmap.json exists.</p>';
+    return;
+  }
+  renderHeader();
+  renderStats();
+  renderTeamNav();
+  renderTable();
+  renderGantt();
+  renderBuckets();
+  updateFilterCount();
+}
+
+function renderHeader() {
+  document.getElementById('reportWeek').textContent = DATA.meta.reportWeek;
+  const freezeStart = new Date(DATA.meta.codeFreeze.start);
+  const today = new Date(DATA.meta.weekOf);
+  const diff = Math.ceil((freezeStart - today) / (1000*60*60*24));
+  const badge = document.getElementById('freezeBadge');
+  if (diff > 0) {
+    badge.textContent = `Code Freeze in ${diff} days (${DATA.meta.codeFreeze.start.slice(5)})`;
+  } else if (today <= new Date(DATA.meta.codeFreeze.end)) {
+    badge.textContent = 'Code Freeze Active';
+    badge.style.background = 'rgba(239,68,68,0.3)';
+  } else {
+    badge.textContent = 'Code Freeze Ended';
+    badge.style.background = 'rgba(34,197,94,0.15)';
+    badge.style.borderColor = 'rgba(34,197,94,0.3)';
+    badge.style.color = '#86efac';
+  }
+}
+
+function renderStats() {
+  const s = DATA.summary;
+  const html = [
+    {v: s.total, l: 'Total', c: 'var(--text)'},
+    {v: s.activeThisQuarter, l: 'Active Q4', c: 'var(--accent)'},
+    {v: s.byStatus['ON TRACK']||0, l: 'On Track', c: 'var(--on-track)'},
+    {v: s.byStatus['AT RISK']||0, l: 'At Risk', c: 'var(--at-risk)'},
+    {v: s.byStatus['BLOCKED']||0, l: 'Blocked', c: 'var(--blocked)'},
+    {v: s.launched, l: 'Launched', c: 'var(--launched)'},
+    {v: s.pushedTo2027, l: 'Pushed to 2027', c: 'var(--pushed)'},
+  ].map(x => `<div class="stat-card"><div class="value" style="color:${x.c}">${x.v}</div><div class="label">${x.l}</div></div>`).join('');
+  document.getElementById('statsBar').innerHTML = html;
+}
+
+function teamColor(t) {
+  const map = {Charlotte:'var(--charlotte)',edX:'var(--edx)',HEN:'var(--hen)',Affiliates:'var(--affiliates)',Partnerships:'var(--partnerships)',Product:'var(--product)'};
+  return map[t] || 'var(--text-muted)';
+}
+
+function renderTeamNav() {
+  const counts = {};
+  getActiveInits().forEach(i => { counts[i.team] = (counts[i.team]||0)+1; });
+  let html = `<button class="team-btn ${currentTeam==='all'?'active':''}" onclick="filterTeam('all')">All<span class="count">${getActiveInits().length}</span></button>`;
+  DATA.teams.forEach(t => {
+    const c = counts[t]||0;
+    if (c > 0) html += `<button class="team-btn ${currentTeam===t?'active':''}" onclick="filterTeam('${t}')">${t}<span class="count">${c}</span></button>`;
+  });
+  document.getElementById('teamNav').innerHTML = html;
+}
+
+function getActiveInits() {
+  return DATA.initiatives.filter(i => i.phase !== 'LAUNCHED' && !isPushed(i));
+}
+
+function isPushed(i) {
+  return i.notes.includes('Not Q4 required') || (i.notes.includes('Pushed to') && i.notes.includes('2027'));
+}
+
+function getFilteredInits() {
+  let inits = getActiveInits();
+  if (currentTeam !== 'all') inits = inits.filter(i => i.team === currentTeam);
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  if (search) inits = inits.filter(i => i.name.toLowerCase().includes(search) || i.bizOwner.toLowerCase().includes(search) || i.engLead.toLowerCase().includes(search));
+  const sf = document.getElementById('statusFilter').value;
+  if (sf) inits = inits.filter(i => i.status === sf);
+  const pf = document.getElementById('phaseFilter').value;
+  if (pf) inits = inits.filter(i => i.phase === pf);
+  // Sort
+  inits.sort((a,b) => {
+    let va = a[sortCol] || '', vb = b[sortCol] || '';
+    if (sortCol === 'status') {
+      const order = {'BLOCKED':0,'AT RISK':1,'ON TRACK':2,'NOT STARTED':3};
+      va = order[va] ?? 4; vb = order[vb] ?? 4;
+    }
+    if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    if (va < vb) return sortAsc ? -1 : 1;
+    if (va > vb) return sortAsc ? 1 : -1;
+    return 0;
+  });
+  return inits;
+}
+
+function pillClass(status) {
+  return 'pill-' + status.toLowerCase().replace(/\s+/g, '-');
+}
+
+function renderTable() {
+  const inits = getFilteredInits();
+  const cols = [
+    {key:'name',label:'Initiative'},
+    {key:'team',label:'Team'},
+    {key:'bizOwner',label:'Owner'},
+    {key:'status',label:'Status'},
+    {key:'phase',label:'Phase'},
+    {key:'techStart',label:'Tech Start',val:i=>i.milestones.techStart},
+    {key:'launch',label:'Launch',val:i=>i.milestones.launch},
+    {key:'notes',label:'Latest Update'}
+  ];
+  let html = '<table><thead><tr>';
+  cols.forEach(c => {
+    const sorted = sortCol === c.key;
+    const icon = sorted ? (sortAsc ? '▲' : '▼') : '▲';
+    html += `<th class="${sorted?'sorted':''}" onclick="doSort('${c.key}')">${c.label}<span class="sort-icon">${icon}</span></th>`;
+  });
+  html += '</tr></thead><tbody>';
+  inits.forEach(i => {
+    const exp = expandedRows.has(i.id);
+    html += `<tr class="${exp?'expanded':''}" data-id="${i.id}">`;
+    // Name
+    html += `<td class="name-cell"><span class="init-name" onclick="toggleRow('${i.id}')">${i.name}</span>`;
+    if (i.autoInterpreted) html += '<span class="auto-tag">AUTO</span>';
+    html += '</td>';
+    // Team
+    html += `<td><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team}</td>`;
+    // Owner
+    html += `<td>${i.bizOwner}</td>`;
+    // Status
+    html += `<td><span class="pill ${pillClass(i.status)}">${i.status}</span></td>`;
+    // Phase
+    html += `<td><span class="pill ${pillClass(i.phase === 'IN TECH' ? 'ON TRACK' : i.phase)}">${i.phase}</span></td>`;
+    // Tech Start
+    html += `<td>${cols[5].val(i)}</td>`;
+    // Launch
+    html += `<td>${cols[6].val(i)}</td>`;
+    // Notes (truncate to ~80 chars)
+    const note = i.notes.length > 80 ? i.notes.slice(0,77)+'...' : i.notes;
+    html += `<td title="${i.notes.replace(/"/g,'&quot;')}">${note}</td>`;
+    html += '</tr>';
+    // Detail row
+    if (exp) {
+      html += `<tr class="detail-row"><td colspan="${cols.length}"><div class="detail-content">`;
+      html += '<div class="detail-section"><h4>Milestones</h4><ul>';
+      const ms = i.milestones;
+      const msNames = {creativeDone:'Creative Done',handoffToTech:'Handoff to Tech',techStart:'Tech Start',techEnd:'Tech End',uatDone:'UAT Done',launch:'Launch'};
+      Object.entries(msNames).forEach(([k,label]) => {
+        const v = ms[k];
+        const done = v && (v === 'Complete' || v === 'Q3' || v === 'Q2 rollover');
+        html += `<li>${label}: <strong>${v||'TBD'}</strong></li>`;
+      });
+      html += '</ul>';
+      // Milestone completion %
+      const total_ms = Object.values(ms).filter(v => v && v !== 'N/A' && v !== 'TBD').length;
+      const done_ms = Object.values(ms).filter(v => v === 'Complete' || v === 'Q3' || v === 'Q2 rollover').length;
+      if (total_ms > 0) {
+        const pct = Math.round(done_ms/6*100);
+        html += `<div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Milestone completion: ${pct}% (${done_ms}/6)</div>`;
+      }
+      html += '</div>';
+      html += '<div class="detail-section"><h4>Details</h4>';
+      html += `<p><strong>Eng Lead:</strong> ${i.engLead || 'TBD'}</p>`;
+      html += `<p><strong>Epic:</strong> ${i.epic || 'TBD'}</p>`;
+      html += `<p><strong>Notes:</strong> ${i.notes}</p>`;
+      html += `<p><strong>Last Updated:</strong> ${i.lastUpdated}</p>`;
+      html += '<div class="detail-links" style="margin-top:12px">';
+      if (i.prd && i.prd !== 'TBD' && !i.prd.startsWith('Draft')) html += `<a href="${i.prd}" target="_blank">PRD ↗</a>`;
+      if (i.epic && i.epic !== 'TBD') html += `<a href="https://redventures.atlassian.net/browse/${i.epic}" target="_blank">${i.epic} ↗</a>`;
+      html += '</div></div></div></td></tr>';
+    }
+  });
+  html += '</tbody></table>';
+  document.getElementById('tableView').innerHTML = html;
+  updateFilterCount();
+}
+
+function renderGantt() {
+  const inits = getFilteredInits();
+  // Date range: Oct 27 (S30 start) to Mar 1 2027
+  const rangeStart = new Date('2026-10-26');
+  const rangeEnd = new Date('2027-03-08');
+  const totalDays = (rangeEnd - rangeStart) / (1000*60*60*24);
+  const freezeStart = new Date(DATA.meta.codeFreeze.start);
+  const freezeEnd = new Date(DATA.meta.codeFreeze.end);
+  const today = new Date(DATA.meta.weekOf);
+
+  function pct(d) { return Math.max(0, Math.min(100, ((d - rangeStart) / (1000*60*60*24)) / totalDays * 100)); }
+
+  // Week labels
+  const weeks = [];
+  let d = new Date(rangeStart);
+  while (d <= rangeEnd) {
+    weeks.push(d.toISOString().slice(5,10));
+    d.setDate(d.getDate() + 7);
+  }
+
+  let html = '<div class="gantt-header"><div class="label">Initiative</div><div class="gantt-weeks">';
+  weeks.forEach(w => html += `<span>${w}</span>`);
+  html += '</div></div>';
+
+  inits.forEach(i => {
+    const ms = i.milestones;
+    let start = parseGanttDate(ms.techStart);
+    let end = parseGanttDate(ms.launch) || parseGanttDate(ms.techEnd);
+    if (!start || !end) { start = today; end = today; }
+
+    const left = pct(start);
+    const width = Math.max(1, pct(end) - left);
+    const color = teamColor(i.team);
+    const statusBorder = i.status === 'AT RISK' ? 'border:2px solid var(--at-risk)' : i.status === 'BLOCKED' ? 'border:2px solid var(--blocked)' : '';
+
+    html += `<div class="gantt-row">`;
+    html += `<div class="gantt-label"><span class="team-dot" style="background:${color}"></span>${i.name}</div>`;
+    html += `<div class="gantt-track" style="position:relative">`;
+    // Freeze zone
+    html += `<div class="gantt-freeze" style="left:${pct(freezeStart)}%;width:${pct(freezeEnd)-pct(freezeStart)}%"></div>`;
+    // Today line
+    html += `<div class="gantt-today" style="left:${pct(today)}%"></div>`;
+    // Bar
+    html += `<div class="gantt-bar" style="left:${left}%;width:${width}%;background:${color};opacity:0.7;${statusBorder}" title="${i.name}: ${ms.techStart} → ${ms.launch}"></div>`;
+    html += '</div></div>';
+  });
+  document.getElementById('ganttView').innerHTML = html;
+}
+
+function parseGanttDate(s) {
+  if (!s || s === 'TBD' || s === 'N/A') return null;
+  if (s === 'Complete' || s === 'Q3' || s === 'Q2 rollover' || s === 'Q3 rollover') return new Date('2026-10-01');
+  // Try "Nov 6" format
+  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const m = s.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d+)$/);
+  if (m) {
+    const yr = months[m[1]] >= 10 ? 2026 : 2027; // Oct-Dec = 2026, Jan-Mar = 2027
+    return new Date(yr, months[m[1]], parseInt(m[2]));
+  }
+  // Try ISO date
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
+
+function renderBuckets() {
+  // Launched
+  const launched = DATA.initiatives.filter(i => i.phase === 'LAUNCHED');
+  if (launched.length) {
+    let html = '<div class="bucket"><h3><span class="pill pill-launched">LAUNCHED</span> Shipped This Quarter</h3><div class="bucket-grid">';
+    launched.forEach(i => {
+      html += `<div class="bucket-card"><div class="card-name">${i.name}</div><div class="card-meta"><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team} · ${i.bizOwner} · ${i.notes}</div></div>`;
+    });
+    html += '</div></div>';
+    document.getElementById('launchedBucket').innerHTML = html;
+  }
+  // Pushed
+  const pushed = DATA.initiatives.filter(i => isPushed(i));
+  if (pushed.length) {
+    let html = `<div class="bucket"><h3><span style="color:var(--pushed)">↗</span> Pushed to 2027 (${pushed.length})</h3><div class="bucket-grid">`;
+    pushed.forEach(i => {
+      html += `<div class="bucket-card"><div class="card-name">${i.name}</div><div class="card-meta"><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team} · ${i.bizOwner} · ${i.notes}</div></div>`;
+    });
+    html += '</div></div>';
+    document.getElementById('pushedBucket').innerHTML = html;
+  }
+}
+
+function filterTeam(t) {
+  currentTeam = t;
+  renderTeamNav();
+  renderTable();
+  renderGantt();
+}
+
+function setView(v) {
+  currentView = v;
+  document.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  document.getElementById('tableView').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('ganttView').style.display = v === 'gantt' ? '' : 'none';
+  if (v === 'gantt') renderGantt();
+}
+
+function doSort(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  renderTable();
+}
+
+function toggleRow(id) {
+  if (expandedRows.has(id)) expandedRows.delete(id);
+  else expandedRows.add(id);
+  renderTable();
+}
+
+function updateFilterCount() {
+  const total = getActiveInits().length;
+  const filtered = getFilteredInits().length;
+  const el = document.getElementById('filterCount');
+  if (filtered < total) el.textContent = `Showing ${filtered} of ${total}`;
+  else el.textContent = '';
+}
+
+document.getElementById('searchBox').addEventListener('input', () => { renderTable(); renderGantt(); });
+document.getElementById('statusFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
+document.getElementById('phaseFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
+
+init();
+</script>
+</body>
+</html>
