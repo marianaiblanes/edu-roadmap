@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>edX Roadmap Health — Week of Apr 14, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f9f9f8;
+  --surface: #ffffff;
+  --surface-2: #f3f3f1;
+  --surface-3: #eceae6;
+  --border: #e4e3de;
+  --border-mid: #cccac4;
+  --text: #181816;
+  --text-mid: #3a3a37;
+  --text-muted: #76766f;
+  --text-dim: #aeada6;
+  --green-text: #1a5c35;   --green-bg: #edf7f1;   --green-border: #aed9bf;
+  --red-text: #7d1d1d;     --red-bg: #fef1f1;     --red-border: #edb0b0;
+  --amber-text: #6e4100;   --amber-bg: #fdf5e6;   --amber-border: #edcc88;
+  --blocked-text: #2e2e2b; --blocked-bg: #ebebea; --blocked-border: #c0bfba;
+  --blue-text: #1a4480;    --blue-bg: #eff4fd;    --blue-border: #b2ccf0;
+  --teal-text: #145c52;    --teal-bg: #edf7f5;    --teal-border: #9ed4cc;
+  --gray-text: #4e4e4a;    --gray-bg: #f3f3f1;    --gray-border: #d0cfc9;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --r: 8px; --r-lg: 12px;
+  /* edX brand */
+  --edx-green: #1e3932;
+  --edx-green-mid: #2a5247;
+  --edx-green-light: #e6efed;
+  --edx-green-border: #a8c4bc;
+  --edx-orange: #d4451a;
+  --edx-orange-light: #faf0ec;
+  --edx-orange-border: #e8a88e;
+}
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.6; }
+.page { max-width: 980px; margin: 0 auto; padding: 44px 28px 88px; }
+
+/* Header */
+.header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.header-title { font-size: 24px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 4px; }
+.header-title strong { font-weight: 500; }
+.header-meta { font-size: 13px; color: var(--text-muted); }
+
+/* Metrics */
+.metrics { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 8px; margin-bottom: 16px; }
+.m { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 13px 14px; cursor: pointer; transition: border-color .12s, background .12s; }
+.m:hover { border-color: var(--border-mid); }
+.m.active { background: var(--edx-green); border-color: var(--edx-green); }
+.m.active .m-label { color: rgba(255,255,255,.55); }
+.m.active .m-num { color: #fff; }
+.m-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+.m-num { font-size: 22px; font-weight: 400; color: var(--text); line-height: 1; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.d-green   { background: var(--green-text); }
+.d-red     { background: var(--red-text); }
+.d-amber   { background: var(--amber-text); }
+.d-blocked { background: #888884; }
+.d-blue    { background: var(--blue-text); }
+.d-all     { background: var(--text-dim); }
+
+/* LOB filter */
+.filter-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-label { font-size: 11px; color: var(--text-dim); font-family: var(--mono); }
+.lob-btn { font-size: 12px; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 13px; cursor: pointer; transition: all .12s; font-family: var(--font); }
+.lob-btn:hover { border-color: var(--border-mid); color: var(--text); }
+.lob-btn.active { background: var(--edx-green); border-color: var(--edx-green); color: #fff; }
+
+/* Tabs */
+.tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; }
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab { font-size: 13px; color: var(--text-muted); padding: 9px 18px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color .12s; }
+.tab:hover { color: var(--edx-green-mid); }
+.tab.active { color: var(--edx-green); font-weight: 500; border-bottom-color: var(--edx-green); }
+.tc { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+
+/* Section heads — collapsible buckets */
+.sh { display: flex; align-items: center; gap: 10px; margin: 22px 0 9px; cursor: pointer; user-select: none; }
+.sh:first-child { margin-top: 0; }
+.sh:hover .sh-label { color: var(--text-muted); }
+.sh-chevron { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: transform .18s; line-height: 1; flex-shrink: 0; }
+.sh.collapsed .sh-chevron { transform: rotate(-90deg); }
+.sh-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; transition: color .12s; }
+.sh-line { flex: 1; height: 1px; background: var(--border); }
+.bucket-body { overflow: hidden; }
+.bucket-body.collapsed { display: none; }
+
+/* Initiative rows */
+.init { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: 6px; overflow: hidden; transition: border-color .12s, background .12s; cursor: pointer; }
+.init:hover { border-color: var(--border-mid); background: #faf9f7; }
+.init-top { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; }
+.init-body { flex: 1; min-width: 0; }
+.init-name-row { display: flex; align-items: center; gap: 8px; }
+.init-name { font-size: 15px; font-weight: 500; color: var(--text); }
+.init-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.tag { font-size: 10px; font-family: var(--mono); border-radius: 4px; padding: 1px 7px; border: 1px solid; }
+.tag-lob    { color: var(--text-muted);  background: #eae9e4;  border-color: var(--border-mid); font-weight: 500; }
+.tag-change { color: var(--blue-text);  background: var(--blue-bg);   border-color: var(--blue-border); }
+.tag-2u     { color: var(--teal-text);  background: var(--teal-bg);   border-color: var(--teal-border); }
+
+/* TLDR */
+.tldr { margin-top: 9px; font-size: 12px; color: var(--text-mid); line-height: 1.55; }
+.tldr-empty { margin-top: 9px; font-size: 13px; color: var(--text-dim); font-style: italic; }
+
+/* Right side */
+.init-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.sp { font-size: 11px; font-family: var(--mono); font-weight: 500; padding: 4px 12px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.01em; }
+.s-offtrack   { background: var(--red-bg);      color: var(--red-text);      border: 1px solid var(--red-border); }
+.s-blocked    { background: var(--blocked-bg);  color: var(--blocked-text);  border: 1px solid var(--blocked-border); }
+.s-atrisk     { background: var(--amber-bg);    color: var(--amber-text);    border: 1px solid var(--amber-border); }
+.s-ontrack    { background: var(--green-bg);    color: var(--green-text);    border: 1px solid var(--green-border); }
+.s-notstarted { background: var(--gray-bg);     color: var(--gray-text);     border: 1px solid var(--gray-border); }
+.due-lbl     { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+.pending-eta { font-family: var(--mono); font-size: 11px; color: var(--text-dim); font-style: italic; }
+
+/* Row chevron — left of name, accordion style */
+.row-chevron { font-size: 16px; font-weight: 500; color: var(--border-mid); transition: transform .15s, color .12s; line-height: 1; flex-shrink: 0; display: inline-block; margin-top: 1px; }
+.init:hover .row-chevron { color: var(--text-muted); }
+.init.open .row-chevron { transform: rotate(90deg); color: var(--text-muted); }
+
+/* Expanded detail */
+.init-detail { border-top: 1px solid var(--border); padding: 13px 18px 15px; display: none; }
+.init.open .init-detail { display: block; }
+.detail-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+.dk { font-size: 10px; font-family: var(--mono); color: var(--text-dim); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 2px; }
+.dv { font-size: 13px; color: var(--text-mid); }
+.eng-wrap { display: flex; align-items: center; gap: 8px; }
+.eng-bg { width: 72px; height: 3px; background: var(--surface-3); border-radius: 2px; }
+.eng-fill { height: 3px; border-radius: 2px; background: var(--blue-text); }
+.links-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+.ext-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; text-decoration: none; opacity: .7; transition: opacity .12s; }
+.ext-link:hover { opacity: 1; }
+.link-asana { color: var(--red-text); }
+.link-slack { color: #1a5c35; }
+.link-jira  { color: var(--blue-text); }
+
+/* Completed rows */
+.comp { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: 6px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.comp-name { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.comp-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; flex-wrap: wrap; }
+.comp-date { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+.comp-new { font-size: 10px; font-family: var(--mono); color: var(--green-text); background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 4px; padding: 1px 7px; }
+.sp-completed { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+
+/* Week-over-week was-label */
+.was-label { font-family: var(--mono); font-size: 10px; color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; margin-top: 2px; }
+
+/* Due date indicators */
+.due-overdue { font-family: var(--mono); font-size: 11px; color: var(--red-text); font-weight: 500; }
+.due-soon    { font-family: var(--mono); font-size: 11px; color: var(--amber-text); font-weight: 500; }
+
+/* Empty */
+.empty { padding: 36px 0; text-align: center; font-size: 13px; color: var(--text-dim); }
+
+/* Footer */
+.footer { margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-l { font-size: 12px; color: var(--text-dim); }
+.footer-lobs { display: flex; gap: 6px; flex-wrap: wrap; }
+.flob { font-family: var(--mono); font-size: 10px; color: var(--text-dim); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+.init { animation: fadeUp .15s ease both; }
+@media(max-width:640px){ .metrics{grid-template-columns:repeat(3,1fr);} .header-title{font-size:19px;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="header">
+  <h1 class="header-title">edX Roadmap Health — <strong>Week of Apr 14, 2026</strong></h1>
+  <div class="header-meta">Q2 2026 &nbsp;·&nbsp; 21 initiatives &nbsp;·&nbsp; Generated Apr 21, 2026</div>
+</header>
+
+<!-- Metrics: Total restored at position 1 -->
+<div class="metrics">
+  <div class="m active" id="m-all"        onclick="setSF(null,'m-all')"><div class="m-label"><span class="dot d-all"></span>Total</div><div class="m-num" id="mn-all">21</div></div>
+  <div class="m"        id="m-ontrack"    onclick="setSF('On Track','m-ontrack')"><div class="m-label"><span class="dot d-green"></span>On track</div><div class="m-num" id="mn-ontrack">9</div></div>
+  <div class="m"        id="m-offtrack"   onclick="setSF('Off Track','m-offtrack')"><div class="m-label"><span class="dot d-red"></span>Off track</div><div class="m-num" id="mn-offtrack">2</div></div>
+  <div class="m"        id="m-atrisk"     onclick="setSF('At Risk','m-atrisk')"><div class="m-label"><span class="dot d-amber"></span>At risk</div><div class="m-num" id="mn-atrisk">1</div></div>
+  <div class="m"        id="m-blocked"    onclick="setSF('Blocked','m-blocked')"><div class="m-label"><span class="dot d-blocked"></span>Blocked</div><div class="m-num" id="mn-blocked">4</div></div>
+  <div class="m"        id="m-notstarted" onclick="setSF('Not Started','m-notstarted')"><div class="m-label"><span class="dot d-blue"></span>Not started</div><div class="m-num" id="mn-notstarted">5</div></div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">LOB</span>
+  <button class="lob-btn active" onclick="setLF(null,this)">All</button>
+  <button class="lob-btn" onclick="setLF('Marketplace',this)">Marketplace</button>
+  <button class="lob-btn" onclick="setLF('OC',this)">OC</button>
+  <button class="lob-btn" onclick="setLF('eCommerce',this)">eCommerce</button>
+  <button class="lob-btn" onclick="setLF('Degrees',this)">Degrees</button>
+  <button class="lob-btn" onclick="setLF('Discovery',this)">Discovery</button>
+</div>
+
+<!-- Tabs: Pending ETA added here -->
+<div class="tab-bar">
+  <div class="tab active" id="tab-attention" onclick="setTab('attention',this)">Require Attention <span class="tc" id="tc-attention">7</span></div>
+  <div class="tab"        id="tab-due"       onclick="setTab('due',this)">Due soon <span class="tc" id="tc-due">4</span></div>
+  <div class="tab"        id="tab-2u"        onclick="setTab('2u',this)">2U Dependencies <span class="tc" id="tc-2u">5</span></div>
+  <div class="tab"        id="tab-changes"   onclick="setTab('changes',this)">Changes this week <span class="tc" id="tc-changes">3</span></div>
+  <div class="tab"        id="tab-noeta"     onclick="setTab('noeta',this)">Pending ETA <span class="tc" id="tc-noeta">4</span></div>
+  <div class="tab"        id="tab-all"       onclick="setTab('all',this)">All initiatives <span class="tc" id="tc-all">21</span></div>
+  <div class="tab"        id="tab-completed" onclick="setTab('completed',this)">Completed <span class="tc" id="tc-completed">3</span></div>
+</div>
+
+<main id="content"></main>
+
+<footer class="footer">
+  <div class="footer-l">edX Roadmap Health &nbsp;·&nbsp; Apr 21, 2026</div>
+  <div class="footer-lobs">
+    <span class="flob">Marketplace</span><span class="flob">OC</span>
+    <span class="flob">eCommerce</span><span class="flob">Degrees</span><span class="flob">Discovery</span>
+  </div>
+</footer>
+</div>
+
+<script>
+const DATA = [
+  { name:"Comparison Tool", lob:"Marketplace", status:"Off Track", prevStatus:"Off Track", phase:"In Business QA", dueOn:"Apr 21", baseline:"Apr 01, 2026", eng:95, rebaselined:true, statusChange:"", twoU:false, tldr:"Multiple open QA blockers remain including unresolved search eventing issues and a chatbot overlay conflict on mobile blocking the compare CTA — 2U involvement required and no path forward confirmed.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900322", slack:"https://redventures.enterprise.slack.com/archives/C0AF1Q68N76", jira:"https://redventures.atlassian.net/browse/EDUN-9262" },
+  { name:"Find your Path DS Model Implementation", lob:"Marketplace", status:"Off Track", prevStatus:"Off Track", phase:"In Business QA", dueOn:"", baseline:"Mar 16, 2026", eng:100, rebaselined:false, statusChange:"", twoU:false, tldr:"Off track due to delays in Business QA. Alignment is happening today to move QA forward — outcome will determine the path to launch.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213184286940207", slack:"https://redventures.enterprise.slack.com/archives/C0AD104FB4M", jira:"https://redventures.atlassian.net/browse/EDUN-8515" },
+  { name:"Upgrade LMS Upselling", lob:"Marketplace", status:"Blocked", prevStatus:"Off Track", phase:"Ready To Launch", dueOn:"Apr 21", baseline:"Apr 14, 2026", eng:100, rebaselined:true, statusChange:"Off Track → Blocked", twoU:true, tldr:"Internal blockers resolved (Segment events and ConversionTracked fixes deployed), but QA remains blocked on 2U's side — team is waiting on 2U to confirm what access or documentation is still needed before key touchpoints can be tested.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213184286940223", slack:"https://redventures.enterprise.slack.com/archives/C0AFT1029U7", jira:"https://redventures.atlassian.net/browse/EDUN-9810" },
+  { name:"Logistration Simplified Fields", lob:"OC", status:"Blocked", prevStatus:"Blocked", phase:"In Business QA", dueOn:"", baseline:"Nov 10, 2025", eng:100, rebaselined:false, statusChange:"", twoU:true, tldr:"Tech is ready and QA is beginning, but has been blocked since November 2025 with no due date set. Needs visibility on what is gating final completion.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1211723783233133", slack:"https://redventures.enterprise.slack.com/archives/C09H3TQACHF", jira:"https://redventures.atlassian.net/browse/EDUN-7446" },
+  { name:"Multi-Currency Display on Detail Pages", lob:"eCommerce", status:"Blocked", prevStatus:"Blocked", phase:"In Business QA", dueOn:"", baseline:"Dec 08, 2025", eng:100, rebaselined:false, statusChange:"", twoU:false, tldr:"Blocked by the Multi-Currency Acceptance test which is currently in progress. Launch cannot proceed until that dependency clears.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1211723782419874", slack:"https://redventures.enterprise.slack.com/archives/C09B7QS886R", jira:"https://redventures.atlassian.net/browse/EDUN-6893" },
+  { name:"Subscriptions", lob:"OC", status:"Blocked", prevStatus:"Blocked", phase:"In Tech", dueOn:"", baseline:"Apr 23, 2026", eng:64, rebaselined:false, statusChange:"", twoU:false, tldr:"Blocked by 2U for Q2 — waiting on updates and next steps from 2U to proceed. No due date confirmed.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900350", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-8050" },
+  { name:"Geo Pricing (Expanding Scope)", lob:"eCommerce", status:"At Risk", prevStatus:"", phase:"In Creative", dueOn:"May 05", baseline:"May 05, 2026", eng:6, rebaselined:false, statusChange:"", twoU:false, tldr:"At risk because the scope expansion requires 2U's partnerships team to obtain partner approval before work can proceed. Timeline depends on how quickly 2U can secure sign-off.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070318169896", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-10663" },
+  { name:"Recently Viewed Products (Non-CDP)", lob:"Marketplace", status:"On Track", prevStatus:"At Risk", phase:"In Business QA", dueOn:"Apr 20", baseline:"Apr 09, 2026", eng:58, rebaselined:false, statusChange:"At Risk → On Track", twoU:false, tldr:"Recovered from At Risk to On Track this week. In Business QA with due date Apr 20.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900381", slack:"https://redventures.enterprise.slack.com/archives/C0AKN88KZHT", jira:"https://redventures.atlassian.net/browse/EDUN-9982" },
+  { name:"Straight to Checkout", lob:"OC", status:"On Track", prevStatus:"On Track", phase:"In Business QA", dueOn:"Apr 21", baseline:"Apr 07, 2026", eng:100, rebaselined:false, statusChange:"", twoU:false, tldr:"Active QA this week — team confirmed it's on their radar. Testable in staging via monarchPreview flag on any course detail page.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213436797746802", slack:"https://redventures.enterprise.slack.com/archives/C0AJPEQ817F", jira:"https://redventures.atlassian.net/browse/EDUN-9765" },
+  { name:"Homepage Trending Courses", lob:"Marketplace", status:"On Track", prevStatus:"On Track", phase:"In Business QA", dueOn:"Apr 21", baseline:"Apr 21, 2026", eng:76, rebaselined:false, statusChange:"", twoU:false, tldr:"QA pass completed with no UI/UX issues. A few eventing and Monarch config questions flagged and being worked through. New product card list ready for QA in staging.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900303", slack:"https://redventures.enterprise.slack.com/archives/C0AG6CT0YLE", jira:"https://redventures.atlassian.net/browse/EDUN-10012" },
+  { name:"Superlatives on Product Cards", lob:"Marketplace", status:"On Track", prevStatus:"On Track", phase:"Ready To Launch", dueOn:"Apr 21", baseline:"Apr 07, 2026", eng:100, rebaselined:true, statusChange:"", twoU:false, tldr:"Eventing QA completed successfully. Sorting inconsistency on search results investigated and confirmed not a launch blocker — team aligned to monitor alongside broader search changes.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213184286940235", slack:"https://redventures.enterprise.slack.com/archives/C0AG22U9EUB", jira:"https://redventures.atlassian.net/browse/EDUN-10043" },
+  { name:"CYT Airline Module (3 offerings)", lob:"OC", status:"On Track", prevStatus:"On Track", phase:"Ready To Launch", dueOn:"Apr 23", baseline:"Mar 31, 2026", eng:100, rebaselined:true, statusChange:"", twoU:false, tldr:"Events QA completed in prod with all working as expected. Targeting Thursday launch — changes pushed to prod and eventing confirmed healthy.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900295", slack:"https://redventures.enterprise.slack.com/archives/C0AFT1BCXAB", jira:"https://redventures.atlassian.net/browse/EDUN-10024" },
+  { name:"Redesign Promo Banner", lob:"OC", status:"On Track", prevStatus:"On Track", phase:"In Tech", dueOn:"May 05", baseline:"Mar 11, 2026", eng:45, rebaselined:false, statusChange:"", twoU:false, tldr:"Remaining work pushed to Sprint 8 (Apr 15–28) due to extended team absence. On track for May 5 due date. New dev resource taking over remaining work.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900311", slack:"https://redventures.enterprise.slack.com/archives/C0AFTPJBVS7", jira:"https://redventures.atlassian.net/browse/EDUN-9264" },
+  { name:"Shift Post Lead ULRs to RV Experiences", lob:"Degrees", status:"On Track", prevStatus:"", phase:"In Tech", dueOn:"May 12", baseline:"May 12, 2026", eng:0, rebaselined:false, statusChange:"", twoU:true, tldr:"Newly added to roadmap. Engineering just getting underway with a May 12 target. Has 2U dependency.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070374526582", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-11011" },
+  { name:"Promo on LMS/LD", lob:"Marketplace", status:"On Track", prevStatus:"", phase:"In Creative", dueOn:"May 20", baseline:"May 20, 2026", eng:0, rebaselined:false, statusChange:"", twoU:true, tldr:"In Creative phase targeting May 20. Has a 2U dependency — 2U needs to enable plug-in placements before this can launch.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070318169905", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-11150" },
+  { name:"Spanish Translations", lob:"Discovery", status:"On Track", prevStatus:"Not Started", phase:"In Tech", dueOn:"Jul 13", baseline:"Jul 13, 2026", eng:18, rebaselined:true, statusChange:"Not Started → On Track", twoU:false, tldr:"Moved from Not Started to On Track this week. Engineering underway at 18% with a Jul 13 target.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1213203339900337", slack:"https://redventures.enterprise.slack.com/archives/C0AB63K0B0U", jira:"https://redventures.atlassian.net/browse/EDUN-9263" },
+  { name:"Currency Acceptance", lob:"eCommerce", status:"Not Started", prevStatus:"", phase:"Not Started", dueOn:"Jun 02", baseline:"Jun 02, 2026", eng:0, rebaselined:false, statusChange:"", twoU:false, tldr:"Not yet started. Targeting Jun 2.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070318169914", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-10662" },
+  { name:"LMS/LD Upgrade Modal Iterations", lob:"Marketplace", status:"Not Started", prevStatus:"", phase:"Not Started", dueOn:"Jun 17", baseline:"Jun 17, 2026", eng:0, rebaselined:false, statusChange:"", twoU:true, tldr:"Not yet started. Targeting Jun 17. Has 2U dependency.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070374526548", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-11149" },
+  { name:"Comparison Tool Iterations (PDP + Search)", lob:"Marketplace", status:"Not Started", prevStatus:"", phase:"Not Started", dueOn:"Jul 13", baseline:"Jul 13, 2026", eng:0, rebaselined:false, statusChange:"", twoU:false, tldr:"Not yet started. Targeting Jul 13.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070374526572", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-10628" },
+  { name:"Product Cards DE Configurability", lob:"Marketplace", status:"Not Started", prevStatus:"", phase:"Not Started", dueOn:"Jul 13", baseline:"Jul 13, 2026", eng:0, rebaselined:false, statusChange:"", twoU:false, tldr:"Not yet started. Targeting Jul 13.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070374526566", slack:"", jira:"https://redventures.atlassian.net/browse/EDUN-10643" },
+  { name:"Recommendation Spotlight + Data Science Model", lob:"Marketplace", status:"Not Started", prevStatus:"", phase:"Not Started", dueOn:"Jul 13", baseline:"Jul 13, 2026", eng:null, rebaselined:false, statusChange:"", twoU:false, tldr:"Not yet started. Targeting Jul 13.", asana:"https://app.asana.com/1/9354602449151/project/1209380408708128/task/1214070374526557", slack:"", jira:"" }
+];
+
+
+const NEWLY_COMPLETED = [
+  { name:"Trending Industries (Learner Dashboard Empty State)", lob:"Marketplace", completedOn:"Apr 16, 2026" },
+  { name:"Automated Solution for 3XX/4XX", lob:"Discovery", completedOn:"Apr 14, 2026" },
+  { name:"2U Request: Multi-currency Payment Acceptance", lob:"eCommerce", completedOn:"Apr 16, 2026" }
+];
+
+const ALL_COMPLETED = [
+  { name:"Trending Industries (Learner Dashboard Empty State)", lob:"Marketplace", completedOn:"Apr 16, 2026", isNew:true },
+  { name:"Automated Solution for 3XX/4XX", lob:"Discovery", completedOn:"Apr 14, 2026", isNew:true },
+  { name:"2U Request: Multi-currency Payment Acceptance", lob:"eCommerce", completedOn:"Apr 16, 2026", isNew:true },
+  { name:"CDP", lob:"Marketplace", completedOn:"Mar 26, 2026", isNew:false },
+  { name:"Checkout Mobile Template Redesign", lob:"OC", completedOn:"Mar 20, 2026", isNew:false },
+  { name:"CYT Mobile First Redesign", lob:"OC", completedOn:"Mar 16, 2026", isNew:false },
+  { name:"Referral / Branded Template", lob:"OC", completedOn:"Mar 18, 2026", isNew:false },
+  { name:"Recommendation Panel Learner Dashboard", lob:"Marketplace", completedOn:"Mar 25, 2026", isNew:false },
+  { name:"Find Your Path Search", lob:"Marketplace", completedOn:"Mar 26, 2026", isNew:false },
+  { name:"CYT Unlock", lob:"OC", completedOn:"Jan 21, 2026", isNew:false },
+  { name:"OC Promo Umbrella Landing Page", lob:"OC", completedOn:"Feb 06, 2026", isNew:false },
+  { name:"Get Started with Subject + Skills", lob:"Marketplace", completedOn:"Jan 28, 2026", isNew:false },
+  { name:"Learner Dash Plug-In Testing (A/A)", lob:"Marketplace", completedOn:"Mar 12, 2026", isNew:false },
+  { name:"FYP Dynamic Experiences", lob:"Marketplace", completedOn:"Mar 19, 2026", isNew:false },
+  { name:"Highlight Savings from Bundling", lob:"OC", completedOn:"Feb 04, 2026", isNew:false },
+  { name:"Search Bar Revamp", lob:"Marketplace", completedOn:"Feb 23, 2026", isNew:false },
+  { name:"Geo Dynamic Pricing & Discounts Phase 1 (MVP)", lob:"eCommerce", completedOn:"Mar 06, 2026", isNew:false },
+  { name:"Go To Market Automation", lob:"Marketplace", completedOn:"Feb 03, 2026", isNew:false },
+  { name:"Level Set Competitive Assets", lob:"OC", completedOn:"Feb 17, 2026", isNew:false },
+  { name:"Auto-Fill PII at Checkout", lob:"eCommerce", completedOn:"Jan 22, 2026", isNew:false },
+  { name:"Industry Highlights Section (Career)", lob:"Marketplace", completedOn:"Feb 16, 2026", isNew:false },
+  { name:"Find Your Path Entry Points Test", lob:"Marketplace", completedOn:"Feb 25, 2026", isNew:false },
+  { name:"School Page Redesign", lob:"Discovery", completedOn:"Apr 09, 2026", isNew:false },
+  { name:"New Template #3 - Researcher", lob:"OC", completedOn:"Jan 22, 2026", isNew:false },
+  { name:"Program Journey Optimization", lob:"OC", completedOn:"Jan 16, 2026", isNew:false }
+];
+
+// Week key for dynamic date logic
+const WEEK_KEY = '2026-W17';
+const REPORT_DATE = new Date('2026-04-21');
+
+function parseDate(dateStr) {
+  if (!dateStr) return null;
+  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const parts = dateStr.split(' ');
+  const now = new Date(); now.setHours(0,0,0,0);
+  const d = new Date(now.getFullYear(), months[parts[0]], parseInt(parts[1]));
+  if (d < new Date(now.getFullYear(), now.getMonth() - 6, 1)) d.setFullYear(now.getFullYear()+1);
+  return d;
+}
+
+
+function sortByETA(list) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  return [...list].sort((a, b) => {
+    const da = parseDate(a.dueOn);
+    const db = parseDate(b.dueOn);
+    if (!da && !db) return 0;
+    if (!da) return -1; // no ETA goes first
+    if (!db) return 1;
+    return da - db;
+  });
+}
+function isOverdue(dateStr) {
+  const d = parseDate(dateStr);
+  if (!d) return false;
+  const now = new Date(); now.setHours(0,0,0,0);
+  return d < now;
+}
+
+function isDueSoon(dateStr) {
+  const d = parseDate(dateStr);
+  if (!d) return false;
+  const now = new Date(); now.setHours(0,0,0,0);
+  const in7 = new Date(now); in7.setDate(now.getDate()+7);
+  return d >= now && d <= in7;
+}
+
+function renderCompleted(c) {
+  return `<div class="comp">
+    <div style="display:flex;align-items:flex-start;gap:10px">
+      <span style="font-size:14px;color:var(--green-text);margin-top:2px;flex-shrink:0">&#10003;</span>
+      <div>
+        <div class="comp-name" style="${c.isNew ? '' : 'text-decoration:line-through;text-decoration-color:var(--text-dim)'}">${c.name}</div>
+        <div class="comp-meta">
+          <span class="tag tag-lob">${c.lob}</span>
+          ${c.isNew ? '<span class="comp-new">Completed this week</span>' : ''}
+          <span class="comp-date">${c.completedOn}</span>
+        </div>
+      </div>
+    </div>
+    <span class="sp sp-completed">Complete</span>
+  </div>`;
+}
+
+// Due soon: dynamic — any initiative due within 7 days of today or already overdue
+function getDueSoon(base) {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const in7 = new Date(now); in7.setDate(now.getDate() + 7);
+  return base
+    .filter(d => d.dueOn)
+    .map(d => {
+      const parts = d.dueOn.split(' ');
+      const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+      const dt = new Date(now.getFullYear(), months[parts[0]], parseInt(parts[1]));
+      // roll year if date is way in the past (e.g. Jan when we're in Dec)
+      if (dt < new Date(now.getFullYear(), now.getMonth() - 6, 1)) dt.setFullYear(now.getFullYear()+1);
+      return { ...d, _dt: dt };
+    })
+    .filter(d => d._dt <= in7)
+    .sort((a,b) => a._dt - b._dt);
+}
+let sf = null, lf = null, tab = 'attention';
+const collapsedBuckets = new Set();
+
+function sc(s) {
+  return {'Off Track':'s-offtrack','Blocked':'s-blocked','At Risk':'s-atrisk','On Track':'s-ontrack','Not Started':'s-notstarted'}[s]||'s-notstarted';
+}
+
+function renderInit(ini) {
+  const idx = DATA.indexOf(ini);
+  const tags = [
+    `<span class="tag tag-lob">${ini.lob}</span>`,
+    ini.twoU ? `<span class="tag tag-2u">2U dependency</span>` : '',
+  ].filter(Boolean).join('');
+
+  const overdue = isOverdue(ini.dueOn);
+  const soon    = !overdue && isDueSoon(ini.dueOn);
+  const dueDot = overdue ? `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red-text);margin-right:5px;vertical-align:middle;margin-bottom:1px"></span>` : soon ? `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber-text);margin-right:5px;vertical-align:middle;margin-bottom:1px"></span>` : '';
+  const dueEl = ini.dueOn
+    ? `<span class="${overdue ? 'due-overdue' : soon ? 'due-soon' : 'due-lbl'}" style="display:flex;align-items:center">${dueDot}${ini.dueOn}</span>`
+    : `<span class="pending-eta">Pending ETA</span>`;
+  const wowEl = ini.prevStatus && ini.prevStatus !== ini.status && ini.prevStatus !== ''
+    ? `<span class="was-label">was ${ini.prevStatus}</span>`
+    : '';
+
+  const tldrEl = ini.tldr
+    ? `<div class="tldr">${ini.tldr}</div>`
+    : `<div class="tldr-empty">No update available — add context to generate summary.</div>`;
+
+  const links = [
+    ini.asana ? `<a class="ext-link link-asana" href="${ini.asana}" target="_blank" onclick="event.stopPropagation()">Asana &#8599;</a>` : '',
+    ini.slack ? `<a class="ext-link link-slack" href="${ini.slack}" target="_blank" onclick="event.stopPropagation()">Slack &#8599;</a>` : '',
+    ini.jira  ? `<a class="ext-link link-jira"  href="${ini.jira}"  target="_blank" onclick="event.stopPropagation()">Jira &#8599;</a>`  : '',
+  ].filter(Boolean).join('');
+
+  return `<div class="init" id="init-${idx}" onclick="toggleRow(${idx})" style="animation-delay:${(idx%12)*20}ms">
+    <div class="init-top">
+      <div class="init-body">
+        <div class="init-name-row"><span class="row-chevron">&#8250;</span><div class="init-name">${ini.name}</div></div>
+        <div class="init-tags">${tags}</div>
+        ${tldrEl}
+      </div>
+      <div class="init-right">
+        <span class="sp ${sc(ini.status)}">${ini.status}</span>
+        ${wowEl}
+        ${dueEl}
+      </div>
+    </div>
+    <div class="init-detail">
+      <div class="detail-row">
+        <div><div class="dk">Phase</div><div class="dv">${ini.phase}</div></div>
+        <div><div class="dk">Due</div><div class="dv">${ini.dueOn||'Pending ETA'}</div></div>
+        <div><div class="dk">Baseline</div><div class="dv">${ini.baseline||'—'}</div></div>
+        ${ini.eng !== null ? `<div><div class="dk">Engineering</div><div class="eng-wrap"><div class="eng-bg"><div class="eng-fill" style="width:${ini.eng}%"></div></div><div class="dv">${ini.eng}%</div></div></div>` : ''}
+        ${ini.rebaselined ? `<div><div class="dk">Note</div><div class="dv" style="color:var(--amber-text)">Baseline updated this week</div></div>` : ''}
+      </div>
+      ${links ? `<div class="links-row">${links}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function bucket(key, label, list) {
+  if (!list.length) return '';
+  const isCollapsed = collapsedBuckets.has(key);
+  return `
+    <div class="sh${isCollapsed ? ' collapsed' : ''}" onclick="toggleBucket('${key}', this)">
+      <span class="sh-chevron">&#8250;</span>
+      <span class="sh-label">${label} &nbsp;·&nbsp; ${list.length}</span>
+      <span class="sh-line"></span>
+    </div>
+    <div class="bucket-body${isCollapsed ? ' collapsed' : ''}" id="bucket-${key}">
+      ${list.map(renderInit).join('')}
+    </div>`;
+}
+
+function toggleBucket(key, el) {
+  event.stopPropagation();
+  if (collapsedBuckets.has(key)) {
+    collapsedBuckets.delete(key);
+    el.classList.remove('collapsed');
+    document.getElementById('bucket-' + key).classList.remove('collapsed');
+  } else {
+    collapsedBuckets.add(key);
+    el.classList.add('collapsed');
+    document.getElementById('bucket-' + key).classList.add('collapsed');
+  }
+}
+
+function toggleRow(idx) { document.getElementById('init-'+idx).classList.toggle('open'); }
+
+function setSF(s, id) {
+  // Toggle off if already active
+  if (sf === s) {
+    sf = null;
+    document.querySelectorAll('.m').forEach(el => el.classList.remove('active'));
+    document.getElementById('m-all').classList.add('active');
+    tab = 'attention';
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-attention').classList.add('active');
+    render(); return;
+  }
+  sf = s;
+  document.querySelectorAll('.m').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  tab = 'all';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-all').classList.add('active');
+  render();
+}
+
+function setLF(l, el) {
+  lf = l;
+  document.querySelectorAll('.lob-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function setTab(t, el) {
+  tab = t; sf = null;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.m').forEach(m => m.classList.remove('active'));
+  document.getElementById('m-all').classList.add('active');
+  render();
+}
+
+
+function render() {
+  const base = DATA.filter(d => !lf || d.lob === lf);
+  const c = document.getElementById('content');
+  let html = '';
+
+  if (sf) {
+    const list = base.filter(d => d.status === sf);
+    html += bucket(sf, sf, list);
+    if (!list.length) html = `<div class="empty">No initiatives match.</div>`;
+    c.innerHTML = html; updateCounts(base); return;
+  }
+
+  if (tab === 'attention') {
+    // Order: At Risk, Off Track, Blocked
+    html += bucket('At Risk',   'At Risk',   base.filter(d => d.status === 'At Risk'));
+    html += bucket('Off Track', 'Off Track', base.filter(d => d.status === 'Off Track'));
+    html += bucket('Blocked',   'Blocked',   base.filter(d => d.status === 'Blocked'));
+    if (!base.filter(d => ['Off Track','Blocked','At Risk'].includes(d.status)).length)
+      html = `<div class="empty">Nothing requires attention this week.</div>`;
+  }
+
+  if (tab === '2u') {
+    const twou = sortByETA(base.filter(d => d.twoU));
+    if (!twou.length) { html += `<div class="empty">No 2U dependencies in current filter.</div>`; }
+    else { html += twou.map(renderInit).join(''); }
+  }
+
+  if (tab === 'changes') {
+    const changed = sortByETA(base.filter(d => d.statusChange));
+    if (!changed.length) { html += `<div class="empty">No status changes this week.</div>`; }
+    else { html += changed.map(renderInit).join(''); }
+  }
+
+  if (tab === 'due') {
+    const due = getDueSoon(base);
+    if (!due.length) { html += `<div class="empty">No initiatives due within the next 7 days.</div>`; }
+    else { html += due.map(renderInit).join(''); }
+  }
+
+  if (tab === 'noeta') {
+    const noeta = base.filter(d => !d.dueOn);
+    if (!noeta.length) { html += `<div class="empty">All initiatives have a due date.</div>`; }
+    else { html += noeta.map(renderInit).join(''); }
+  }
+
+  if (tab === 'completed') {
+    const filteredCompleted = ALL_COMPLETED.filter(c => !lf || c.lob === lf);
+    const newOnes  = filteredCompleted.filter(c => c.isNew);
+    const prevOnes = filteredCompleted.filter(c => !c.isNew);
+    if (newOnes.length) {
+      html += `<div class="sh"><span class="sh-chevron" style="visibility:hidden">&#8250;</span><span class="sh-label">Completed this week &nbsp;·&nbsp; ${newOnes.length}</span><span class="sh-line"></span></div>`;
+      html += newOnes.map(renderCompleted).join('');
+    }
+    if (prevOnes.length) {
+      const key = 'comp-prev';
+      const isCol = collapsedBuckets.has(key);
+      html += `<div class="sh${isCol?' collapsed':''}" onclick="toggleBucket('${key}',this)"><span class="sh-chevron">&#8250;</span><span class="sh-label">Previously completed &nbsp;·&nbsp; ${prevOnes.length}</span><span class="sh-line"></span></div>`;
+      html += `<div class="bucket-body${isCol?' collapsed':''}" id="bucket-${key}">${prevOnes.map(renderCompleted).join('')}</div>`;
+    }
+    if (!filteredCompleted.length) html += `<div class="empty">No completed initiatives match this filter.</div>`;
+  }
+
+  if (tab === 'all') {
+    // Order: On Track, At Risk, Off Track, Blocked, Not Started
+    html += bucket('On Track',    'On Track',    base.filter(d => d.status === 'On Track'));
+    html += bucket('At Risk',     'At Risk',     base.filter(d => d.status === 'At Risk'));
+    html += bucket('Off Track',   'Off Track',   base.filter(d => d.status === 'Off Track'));
+    html += bucket('Blocked',     'Blocked',     base.filter(d => d.status === 'Blocked'));
+    html += bucket('Not Started', 'Not Started', base.filter(d => d.status === 'Not Started'));
+    if (!base.length) html = `<div class="empty">No initiatives match.</div>`;
+  }
+
+  c.innerHTML = html;
+  updateCounts(base);
+}
+
+function updateCounts(base) {
+  const cnt = {all:base.length,'On Track':0,'Off Track':0,'At Risk':0,'Blocked':0,'Not Started':0};
+  base.forEach(d => { if (cnt[d.status] !== undefined) cnt[d.status]++; });
+  document.getElementById('mn-all').textContent        = cnt.all;
+  document.getElementById('mn-ontrack').textContent    = cnt['On Track'];
+  document.getElementById('mn-offtrack').textContent   = cnt['Off Track'];
+  document.getElementById('mn-atrisk').textContent     = cnt['At Risk'];
+  document.getElementById('mn-blocked').textContent    = cnt['Blocked'];
+  document.getElementById('mn-notstarted').textContent = cnt['Not Started'];
+  document.getElementById('tc-attention').textContent  = base.filter(d => ['Off Track','Blocked','At Risk'].includes(d.status)).length;
+  document.getElementById('tc-2u').textContent         = base.filter(d => d.twoU).length;
+  document.getElementById('tc-changes').textContent    = base.filter(d => d.statusChange).length;
+  document.getElementById('tc-due').textContent        = getDueSoon(base).length;
+  document.getElementById('tc-noeta').textContent      = base.filter(d => !d.dueOn).length;
+  document.getElementById('tc-all').textContent        = base.length;
+  const compEl = document.getElementById('tc-completed');
+  if (compEl) compEl.textContent = ALL_COMPLETED.filter(c => !lf || c.lob === lf).filter(c => c.isNew).length;
+}
+
+render();
+</script>
+</body>
+</html>
