@@ -1,9 +1,10 @@
 {
   "meta": {
-    "generated": "2026-11-10T13:51:31.755502",
+    "generated": "2026-11-11T14:52:58.551009",
     "source": "Google Sheet 14KsB_5McMVOZ6yn1wX5bRbSNQUyp81-2zwuusZX40Fg",
     "weekOf": "2026-11-10",
     "reportWeek": "Week of Nov 10, 2026",
+    "lastRefreshed": "Nov 11, 2026 02:52 PM",
     "codeFreeze": {
       "start": "2026-12-16",
       "end": "2027-01-05"
@@ -32,7 +33,7 @@
       "id": "26Q4-32",
       "name": "Admissions Recommendations",
       "team": "Charlotte",
-      "bizOwner": "Ana Sofía Acuña González",
+      "bizOwner": "Ana Sof\u00eda Acu\u00f1a Gonz\u00e1lez",
       "engLead": "Kidany Figueroa",
       "epic": "EDUN-16970",
       "slackChannel": "C0CALB4Q2M9",
@@ -47,11 +48,18 @@
         "uatDone": "Dec 4",
         "launch": "Dec 7"
       },
-      "notes": "Revised to S31-S33. In progress.",
+      "notes": "Eng work complete per Kidany (Nov 10). Remaining delivery depends on business config, creative, and data. BAU improvements only going forward.",
       "bizOwnerSlackId": "U07G4N0523D",
       "engLeadSlackId": "U092UF27DT6",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 14,
+        "inProgress": 1,
+        "backlog": 10,
+        "total": 25,
+        "pctComplete": 56
+      }
     },
     {
       "id": "26Q4-12",
@@ -72,18 +80,18 @@
         "uatDone": "Jan 8",
         "launch": "Jan 11"
       },
-      "notes": "S32-S37. Eng finishes Dec 24, deep in code freeze.",
+      "notes": "S32-S37. Kickoff Thu Nov 13 confirmed. EDUN-19039 (filter testing) added to scope per Nori.",
       "bizOwnerSlackId": "U03TVLG5YJX",
       "engLeadSlackId": "U0AMT9CSREH",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11"
     },
     {
       "id": "26Q4-075",
       "name": "Email Lifecycle (Kamino)",
       "team": "Charlotte",
       "bizOwner": "Norimar / Camila Sadurni",
-      "engLead": "Eduardo Pérez Cortés",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
       "epic": "EDUN-15233",
       "slackChannel": "C0C563QN1M3",
       "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102769000676",
@@ -97,17 +105,26 @@
         "uatDone": "Feb 18",
         "launch": "Feb 22"
       },
-      "notes": "Eng start pushed S31→S34. 7 business inputs still open.",
+      "notes": "Phase 7 QA deployed to prod. Creative template gen (EDOP-1365) in discussion. ~46% tickets complete.",
       "bizOwnerSlackId": "U03TVLG5YJX",
       "engLeadSlackId": "U0AA2HUF6QJ",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 21,
+        "abandoned": 2,
+        "inProgress": 0,
+        "backlog": 27,
+        "total": 50,
+        "pctComplete": 46,
+        "note": "hasNextPage \u2014 more backlog tickets on page 2"
+      }
     },
     {
       "id": "26Q3-74",
       "name": "Program Finder",
       "team": "Charlotte",
-      "bizOwner": "Isabel Mirandés Suárez",
+      "bizOwner": "Isabel Mirand\u00e9s Su\u00e1rez",
       "engLead": "Joe Rodriguez",
       "epic": "EDUN-14085",
       "slackChannel": "C0B90H2FJKY",
@@ -122,15 +139,23 @@
         "uatDone": "Dec 4",
         "launch": "Dec 7"
       },
-      "notes": "Q3 rollover. Revised to S31-S33.",
+      "notes": "Font hosting pending (arch team review). Mock tenant env mismatch blocking SLT demo Nov 12. 80% tickets complete.",
       "bizOwnerSlackId": "U05HUP14P6C",
       "engLeadSlackId": "U08NS5RST6U",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 15,
+        "abandoned": 9,
+        "inProgress": 2,
+        "backlog": 4,
+        "total": 30,
+        "pctComplete": 80
+      }
     },
     {
       "id": "26Q4-70 / 26Q4-13",
-      "name": "Partner Dash Phase 5 — AI Chatbot",
+      "name": "Partner Dash Phase 5 \u2014 AI Chatbot",
       "team": "Charlotte",
       "bizOwner": "Norimar Gayoso Sifre",
       "engLead": "Joe Rodriguez",
@@ -222,11 +247,19 @@
         "uatDone": "Nov 30",
         "launch": "Dec 2"
       },
-      "notes": "Split into P1 (S31-S32) + P2. Phase 1 in progress.",
+      "notes": "Active S31. Monarch partner key approach still in exploration (custom trait + URL param won't work post-checkout-rule). 48% tickets complete.",
       "bizOwnerSlackId": "U097XS4BQJV",
       "engLeadSlackId": "U08NS5RST6U",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 9,
+        "abandoned": 1,
+        "inProgress": 5,
+        "backlog": 6,
+        "total": 21,
+        "pctComplete": 48
+      }
     },
     {
       "id": "26Q4-26-p2",
@@ -258,7 +291,7 @@
       "name": "GTM Course Launch Experience",
       "team": "edX",
       "bizOwner": "Carlos Covas",
-      "engLead": "Eduardo Pérez Cortés",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
       "epic": "EDUN-17479",
       "slackChannel": "C0CAWAS1CFN",
       "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066599522",
@@ -283,7 +316,7 @@
       "name": "Search Page Revamp",
       "team": "edX",
       "bizOwner": "Carlos Covas",
-      "engLead": "Eduardo Pérez Cortés",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
       "epic": "EDUN-14823",
       "slackChannel": "C0BFYRKHL4V",
       "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102753894406",
@@ -308,12 +341,12 @@
       "name": "Product Cards DE Configurability",
       "team": "edX",
       "bizOwner": "Alex Agosto",
-      "engLead": "Eduardo Pérez Cortés",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
       "epic": "EDUN-10643",
       "slackChannel": "C0B66RH67PS",
       "prd": "https://redventures.atlassian.net/wiki/spaces/RV2U/pages/102453706764",
       "phase": "IN TECH",
-      "status": "BLOCKED",
+      "status": "ON TRACK",
       "milestones": {
         "creativeDone": "Complete",
         "handoffToTech": "Complete",
@@ -322,11 +355,20 @@
         "uatDone": "TBD",
         "launch": "TBD"
       },
-      "notes": "Q2/Q3 rollover. Blocked on Search Page Revamp.",
+      "notes": "Blocker resolved (Search Revamp launched Nov 9). 1 remaining ticket (EDUN-15399, data binding). 90% active scope complete.",
       "bizOwnerSlackId": "U075GG9PMNW",
       "engLeadSlackId": "U0AA2HUF6QJ",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 9,
+        "abandoned": 16,
+        "inProgress": 0,
+        "backlog": 1,
+        "total": 26,
+        "pctComplete": 90,
+        "note": "16 abandoned from original Q2 approach"
+      }
     },
     {
       "id": "26Q4-25",
@@ -383,7 +425,7 @@
       "name": "Comparison Tool Iterations",
       "team": "edX",
       "bizOwner": "Alani Lay Fumero / Natalia Fernandez",
-      "engLead": "Eduardo Pérez Cortés",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
       "epic": "EDUN-10628",
       "slackChannel": "C0AF1Q68N76",
       "prd": "https://redventures.atlassian.net/wiki/spaces/RV2U/pages/102450495637",
@@ -422,11 +464,19 @@
         "uatDone": "Nov 19",
         "launch": "Nov 30"
       },
-      "notes": "S31 only. Q3 rollover, in progress.",
+      "notes": "Pushing to launch test without DE integration by EOW. Design/UI ready per Jonathan. ~100% tickets complete.",
       "bizOwnerSlackId": "U05GQFUN8ET",
       "engLeadSlackId": "U092UF27DT6",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 50,
+        "inProgress": 0,
+        "backlog": 0,
+        "total": 50,
+        "pctComplete": 100,
+        "note": "hasNextPage \u2014 all page 1 tickets Done"
+      }
     },
     {
       "id": "26Q4-66",
@@ -447,11 +497,11 @@
         "uatDone": "Dec 4",
         "launch": "Dec 7"
       },
-      "notes": "S32-S33. Business owner gap still open.",
+      "notes": "S32-S33. PRD handoff in progress (Maria Cristina + Ariana). Business owner gap still open. PRD last modified Sep 9.",
       "bizOwnerSlackId": null,
       "engLeadSlackId": "U089X3AMRT6",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11"
     },
     {
       "id": "26Q4-20",
@@ -563,26 +613,33 @@
       "slackChannel": "C0CALBV4QQK",
       "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102734299327",
       "phase": "IN TECH",
-      "status": "ON TRACK",
+      "status": "AT RISK",
       "milestones": {
         "creativeDone": "N/A",
         "handoffToTech": "Oct 23",
         "techStart": "Nov 6",
-        "techEnd": "Nov 12",
+        "techEnd": "Nov 19",
         "uatDone": "Nov 19",
         "launch": "Nov 30"
       },
-      "notes": "Compressed to S31 only. P0-P3 + P4-T1 complete.",
+      "notes": "1-sprint delay (unplanned PTO). Delivery pushed S31\u2192S32. Tech End Nov 19. 79% tickets complete.",
       "bizOwnerSlackId": "U010TS5000P",
       "engLeadSlackId": "U089X3AMRT6",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 15,
+        "inProgress": 1,
+        "backlog": 3,
+        "total": 19,
+        "pctComplete": 79
+      }
     },
     {
       "id": "26Q4-15",
       "name": "EDUN Lead Rerouter",
       "team": "Partnerships",
-      "bizOwner": "Joaquín Nieves",
+      "bizOwner": "Joaqu\u00edn Nieves",
       "engLead": "Rogelio Vazquez-Rivera",
       "epic": "EDUN-17078",
       "slackChannel": "C0CAQKU3VFG",
@@ -597,7 +654,7 @@
         "uatDone": "Jan 8",
         "launch": "Jan 11"
       },
-      "notes": "Eng start pushed S31→S34. Creative needed (EDOP-1578). PRD V0.2.",
+      "notes": "Eng start pushed S31\u2192S34. Creative needed (EDOP-1578). PRD V0.2.",
       "bizOwnerSlackId": "U05GYCC347Q",
       "engLeadSlackId": "U089X3AMRT6",
       "autoInterpreted": false,
@@ -647,13 +704,120 @@
         "uatDone": "Dec 24",
         "launch": "Jan 6"
       },
-      "notes": "S31-S36. All 24 Jira tickets still Backlog.",
+      "notes": "Data-binding bug fixed (Rogelio, Nov 11). Active development per Slack. All 24 Jira tickets still in Backlog \u2014 may not reflect actual progress.",
       "bizOwnerSlackId": "U05H7FEPA4U",
       "engLeadSlackId": "U014S4GFPU7",
       "autoInterpreted": false,
-      "lastUpdated": "2026-11-09"
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 0,
+        "inProgress": 0,
+        "backlog": 24,
+        "total": 24,
+        "pctComplete": 0,
+        "note": "Tickets not reflecting actual Slack-visible work"
+      }
     }
   ],
+  "narrative": {
+    "tldr": "25 initiative channels swept (full 3-pass protocol). Jira verified for all In Tech epics. Roadmap updated on Google Sheet.\n\n**Portfolio snapshot:** 25 initiatives tracked. 8 In Tech, 2 Launched, 15 Not Started. Three AT RISK (Composable Exp, Monetizable Link, EDUN Lead Rerouter), one formerly BLOCKED now ON TRACK (Product Cards DE).\n\n**Key movements this week:**\n- **Admissions Recs** \u2014 Kidany confirmed no more engineering work needed (Nov 10). Remaining delivery is business config, creative, and data.\n- **Product Cards DE** \u2014 BLOCKED \u2192 ON TRACK. Search Revamp launched, blocker cleared. 1 ticket remaining.\n- **Monetizable Link** \u2014 ON TRACK \u2192 AT RISK. 1-sprint delay (unplanned PTO). Tech End pushed Nov 12\u2192Nov 19.\n- **LPO in HEN** \u2014 Pushing to launch test without DE integration by EOW. ~100% tickets complete.\n- **Composable Exp P1** \u2014 Data-binding bug fixed (Rogelio, Nov 11) but all 24 Jira tickets still Backlog. Remains AT RISK.\n- **Program Finder** \u2014 Font hosting pending, mock tenant env blocking SLT demo. 80% tickets complete.\n- **Tools in DE** \u2014 PRD handoff in progress ahead of Nov 13 Tech Start. Business owner still TBD.\n- **Partner Dash Admin** \u2014 Kickoff confirmed Thu Nov 13. EDUN-19039 added to scope.",
+    "riskRegister": [
+      {
+        "initiative": "Composable Experiences Phase 1",
+        "risk": "All 24 Jira tickets still Backlog despite active Slack development. Ticket tracking not reflecting work.",
+        "severity": "High",
+        "action": "Request ticket status update from Johan/Rogelio.",
+        "weeksAtRisk": 4,
+        "owner": "Camila Sadurni",
+        "team": "Product",
+        "slackChannel": "C0BUDHBMZHA"
+      },
+      {
+        "initiative": "Monetizable Link Bulk Creation",
+        "risk": "1-sprint delay due to unplanned PTO. Tech End pushed Nov 12\u2192Nov 19.",
+        "severity": "Medium",
+        "action": "Monitor S32 delivery progress.",
+        "weeksAtRisk": 1,
+        "owner": "Jessy Epley",
+        "team": "Affiliates",
+        "slackChannel": "C0CALBV4QQK"
+      },
+      {
+        "initiative": "EDUN Lead Rerouter",
+        "risk": "PRD still V0.2. Creative needed (EDOP-1578). Eng start pushed to S34.",
+        "severity": "Medium",
+        "action": "Creative ticket status check.",
+        "weeksAtRisk": 3,
+        "owner": "Joaqu\u00edn Nieves",
+        "team": "Partnerships",
+        "slackChannel": "C0CAQKU3VFG"
+      },
+      {
+        "initiative": "Program Finder",
+        "risk": "Font hosting pending (arch team). Mock tenant env mismatch blocking SLT demo.",
+        "severity": "Medium",
+        "action": "Track font hosting resolution and demo workaround.",
+        "weeksAtRisk": 1,
+        "owner": "Isabel Mirand\u00e9s Su\u00e1rez",
+        "team": "Charlotte",
+        "slackChannel": "C0B90H2FJKY"
+      },
+      {
+        "initiative": "Tools in DE",
+        "risk": "Business owner still TBD. PRD last modified Sep 9. Tech Start Nov 13.",
+        "severity": "Medium",
+        "action": "Confirm PRD handoff readiness and owner assignment.",
+        "weeksAtRisk": 1,
+        "owner": "TBD",
+        "team": "HEN",
+        "slackChannel": "C0CAUFR2G73"
+      }
+    ],
+    "watchList": [
+      {
+        "text": "LPO in HEN: Does launch test happen by EOW?",
+        "initiative": "LPO in HEN (Contentful Migration)",
+        "owner": "Julian Silva",
+        "team": "HEN"
+      },
+      {
+        "text": "Admissions Recs: Business config/creative/data timeline?",
+        "initiative": "Admissions Recommendations",
+        "owner": "Ana Sof\u00eda Acu\u00f1a Gonz\u00e1lez",
+        "team": "Charlotte"
+      },
+      {
+        "text": "Checkout P1: Monarch partner key approach resolution?",
+        "initiative": "Checkout Experience (Phase 1)",
+        "owner": "Alani Lay Fumero",
+        "team": "edX"
+      }
+    ],
+    "checkInResponsiveness": {
+      "reacted": [],
+      "noReaction": [
+        "GTM Course Launch (Carlos Covas)",
+        "Search Page Revamp (Carlos Covas)",
+        "Tools in DE",
+        "LPO in HEN (thank_you from Stephanie, not tagged owner Julian)"
+      ],
+      "noCheckInPosted": []
+    },
+    "movements": [
+      {
+        "initiative": "Product Cards DE Configurability",
+        "from": "BLOCKED",
+        "to": "ON TRACK",
+        "detail": "Search Revamp launched Nov 9 \u2014 blocker cleared. 1 remaining ticket."
+      },
+      {
+        "initiative": "Monetizable Link Bulk Creation",
+        "from": "ON TRACK",
+        "to": "AT RISK",
+        "detail": "1-sprint delay (unplanned PTO). Tech End Nov 12\u2192Nov 19."
+      }
+    ]
+  },
   "summary": {
     "total": 25,
     "activeThisQuarter": 16,
@@ -663,8 +827,8 @@
       "ON TRACK": 8,
       "NOT STARTED": 12,
       "LAUNCHED": 2,
-      "BLOCKED": 1,
-      "AT RISK": 2
+      "BLOCKED": 0,
+      "AT RISK": 3
     },
     "byPhase": {
       "IN TECH": 8,
@@ -727,5 +891,16 @@
       "EDUN Lead Rerouter",
       "Composable Experiences Phase 1"
     ]
+  },
+  "prevSummary": {
+    "total": 25,
+    "launched": 2,
+    "byStatus": {
+      "ON TRACK": 8,
+      "NOT STARTED": 12,
+      "LAUNCHED": 2,
+      "BLOCKED": 1,
+      "AT RISK": 2
+    }
   }
 }

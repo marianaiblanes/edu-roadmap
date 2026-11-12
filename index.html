@@ -6,139 +6,208 @@
 <title>EDU Q4 Weekly Report</title>
 <style>
 :root {
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --surface-hover: #253349;
-  --border: #334155;
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --on-track: #22c55e;
-  --on-track-bg: rgba(34,197,94,0.12);
-  --at-risk: #f59e0b;
-  --at-risk-bg: rgba(245,158,11,0.12);
-  --blocked: #ef4444;
-  --blocked-bg: rgba(239,68,68,0.12);
-  --launched: #8b5cf6;
-  --launched-bg: rgba(139,92,246,0.12);
-  --not-started: #64748b;
-  --not-started-bg: rgba(100,116,139,0.12);
-  --pushed: #6b7280;
-  --charlotte: #3b82f6;
-  --edx: #f97316;
-  --hen: #22c55e;
-  --affiliates: #a855f7;
-  --partnerships: #eab308;
-  --product: #6b7280;
+  --bg: #f5f0eb;
+  --surface: #ffffff;
+  --surface-hover: #f9f6f2;
+  --border: #d9d0c5;
+  --border-light: #e8e1d8;
+  --text: #2c2418;
+  --text-muted: #7a6e5f;
+  --accent: #c0392b;
+  --accent-hover: #a93226;
+  --accent-soft: rgba(192,57,43,0.08);
+  --accent-soft-border: rgba(192,57,43,0.18);
+  --on-track: #2d7a38;
+  --on-track-bg: rgba(45,122,56,0.1);
+  --at-risk: #b87a0a;
+  --at-risk-bg: rgba(184,122,10,0.1);
+  --blocked: #c0392b;
+  --blocked-bg: rgba(192,57,43,0.1);
+  --launched: #6b4fa8;
+  --launched-bg: rgba(107,79,168,0.1);
+  --not-started: #6b6052;
+  --not-started-bg: rgba(107,96,82,0.12);
+  --in-tech: #2a6b8a;
+  --in-tech-bg: rgba(42,107,138,0.1);
+  --charlotte: #4a7fb5;
+  --edx: #c87a32;
+  --hen: #2d7a38;
+  --affiliates: #8a6aaa;
+  --partnerships: #a8892e;
+  --product: #6b6052;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
-.container { max-width:1280px; margin:0 auto; padding:24px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:1200px; margin:0 auto; padding:24px; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
 
 /* Header */
-.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
-.header h1 { font-size:24px; font-weight:700; letter-spacing:-0.5px; }
-.header .subtitle { color:var(--text-muted); font-size:14px; margin-top:4px; }
-.header-right { display:flex; gap:12px; align-items:center; }
-.freeze-badge { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#fca5a5; padding:6px 14px; border-radius:8px; font-size:13px; font-weight:500; }
+.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+.header h1 { font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+.header .subtitle { color:var(--text-muted); font-size:13px; margin-top:2px; }
+.header-badge { display:inline-block; background:var(--accent); color:#fff; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:5px 12px; border-radius:4px; margin-bottom:6px; }
+
 
 /* Stats bar */
-.stats-bar { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-bottom:28px; }
-.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center; }
-.stat-card .value { font-size:28px; font-weight:700; }
-.stat-card .label { font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+.stats-bar { display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap; }
+.stat-card { background:var(--surface); border:2px solid var(--border-light); border-radius:8px; padding:12px 18px; text-align:center; flex:1; min-width:100px; position:relative; cursor:pointer; transition:all 0.15s; }
+.stat-card:hover { border-color:var(--border); transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.stat-card.active { border-color:currentColor; background:var(--surface); box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-card .value { font-size:24px; font-weight:700; }
+.stat-card .label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-top:1px; }
+.stat-card .delta { font-size:10px; font-weight:700; margin-top:2px; }
+.delta-up { color:var(--on-track); }
+.delta-down { color:var(--accent); }
+.delta-neutral { color:var(--text-muted); }
+
+/* Movement indicator */
+.mv-icon { display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; font-size:10px; margin-right:4px; vertical-align:middle; flex-shrink:0; cursor:help; }
+.mv-up { background:var(--on-track-bg); color:var(--on-track); }
+.mv-down { background:var(--blocked-bg); color:var(--blocked); }
+.mv-launch { background:var(--launched-bg); color:var(--launched); }
+
+/* Executive Summary */
+.tldr { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:24px; }
+.tldr h2 { font-size:13px; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent); margin-bottom:14px; font-weight:700; }
+.es-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.es-snapshot { font-size:13px; line-height:1.7; }
+.es-snapshot .es-label { font-size:10px; text-transform:uppercase; letter-spacing:0.4px; color:var(--text-muted); font-weight:600; margin-bottom:6px; }
+.es-snapshot .es-metric { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border-light); }
+.es-snapshot .es-metric:last-child { border-bottom:none; }
+.es-snapshot .es-metric .es-val { font-weight:700; }
+.es-freeze { margin-top:10px; padding:8px 12px; border-radius:6px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px; }
+.es-freeze.warn { background:var(--at-risk-bg); color:var(--at-risk); }
+.es-freeze.ok { background:var(--on-track-bg); color:var(--on-track); }
+.es-movements { font-size:13px; }
+.es-movements .es-label { font-size:10px; text-transform:uppercase; letter-spacing:0.4px; color:var(--text-muted); font-weight:600; margin-bottom:6px; }
+.es-mv-item { display:flex; flex-wrap:wrap; align-items:center; gap:4px 8px; padding:5px 0; border-bottom:1px solid var(--border-light); }
+.es-mv-item:last-child { border-bottom:none; }
+.es-mv-name { flex:1; font-weight:500; }
+.es-mv-pills { display:flex; align-items:center; gap:4px; flex-shrink:0; }
+.es-mv-pills .pill { font-size:9px; padding:1px 6px; }
+.es-mv-arrow { color:var(--text-muted); font-size:10px; }
+.es-mv-detail { font-size:11px; color:var(--text-muted); margin-top:1px; }
+@media (max-width:700px) { .es-grid { grid-template-columns:1fr; } }
 
 /* Team nav */
-.team-nav { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-.team-btn { background:var(--surface); border:1px solid var(--border); color:var(--text-muted); padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; transition:all 0.15s; }
-.team-btn:hover { border-color:var(--accent); color:var(--text); }
-.team-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
-.team-btn .count { opacity:0.7; margin-left:4px; }
+.team-nav { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+.team-btn { background:var(--surface); border:2px solid var(--border-light); color:var(--text); padding:13px 22px; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:8px; letter-spacing:0.1px; }
+.team-btn:hover { transform:translateY(-2px); box-shadow:0 3px 12px rgba(0,0,0,0.08); }
+.team-btn.active { color:#fff; }
+.team-btn .count { opacity:0.75; font-size:11px; font-weight:500; }
 
 /* Controls */
-.controls { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
-.search-box { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 14px; border-radius:8px; font-size:14px; width:240px; }
+.controls { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+.search-box { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:7px 12px; border-radius:6px; font-size:13px; width:220px; }
 .search-box::placeholder { color:var(--text-muted); }
-.filter-select { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font-size:13px; cursor:pointer; }
-.view-toggle { display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-.view-toggle button { background:var(--surface); border:none; color:var(--text-muted); padding:8px 16px; font-size:13px; cursor:pointer; }
+.filter-select { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:7px 10px; border-radius:6px; font-size:12px; cursor:pointer; }
+.view-toggle { display:flex; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+.view-toggle button { background:var(--surface); border:none; color:var(--text-muted); padding:7px 14px; font-size:12px; cursor:pointer; }
 .view-toggle button.active { background:var(--accent); color:#fff; }
-.filter-count { color:var(--text-muted); font-size:13px; margin-left:auto; }
+.filter-count { color:var(--text-muted); font-size:12px; margin-left:auto; }
 
 /* Table */
-.table-wrap { overflow-x:auto; margin-bottom:32px; }
+.table-wrap { overflow-x:auto; margin-bottom:24px; }
 table { width:100%; border-collapse:collapse; font-size:13px; }
-thead th { background:var(--surface); color:var(--text-muted); text-transform:uppercase; font-size:11px; letter-spacing:0.5px; padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; position:sticky; top:0; z-index:2; }
+thead th { background:var(--surface); color:var(--text-muted); text-transform:uppercase; font-size:10px; letter-spacing:0.5px; padding:8px 12px; text-align:left; border-bottom:2px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; position:sticky; top:0; z-index:2; }
 thead th:hover { color:var(--text); }
 thead th .sort-icon { margin-left:4px; opacity:0.4; }
 thead th.sorted .sort-icon { opacity:1; }
-tbody tr { border-bottom:1px solid var(--border); transition:background 0.1s; }
-tbody tr:hover { background:var(--surface-hover); }
+tbody tr { border-bottom:1px solid var(--border-light); transition:background 0.1s; }
+tbody tr:hover { background:var(--surface); }
 tbody tr.expanded { background:var(--surface); }
-td { padding:10px 14px; vertical-align:top; }
-td.name-cell { font-weight:500; max-width:240px; }
+td { padding:9px 12px; vertical-align:top; }
+td.name-cell { font-weight:500; max-width:220px; }
 td.name-cell .init-name { cursor:pointer; }
-td.name-cell .init-name:hover { color:var(--accent); }
+.slack-link { display:inline-flex; align-items:center; gap:3px; margin-left:6px; color:var(--text-muted); font-size:10px; font-weight:600; text-decoration:none; background:var(--surface-hover); border:1px solid var(--border-light); border-radius:4px; padding:2px 6px; vertical-align:middle; line-height:1; letter-spacing:0.3px; text-transform:uppercase; }
+.slack-link:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); }
+.slack-link svg { width:10px; height:10px; fill:currentColor; }
 
 /* Status/phase pills */
-.pill { display:inline-block; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; white-space:nowrap; }
+.pill { display:inline-block; padding:2px 9px; border-radius:10px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; white-space:nowrap; }
 .pill-on-track { background:var(--on-track-bg); color:var(--on-track); }
 .pill-at-risk { background:var(--at-risk-bg); color:var(--at-risk); }
 .pill-blocked { background:var(--blocked-bg); color:var(--blocked); }
 .pill-launched { background:var(--launched-bg); color:var(--launched); }
-.pill-not-started { background:var(--not-started-bg); color:var(--not-started); }
-
-/* Team dot */
-.team-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+.pill-not-started { background:var(--not-started-bg); color:var(--not-started); border:1px solid rgba(107,96,82,0.15); }
+.pill-in-tech { background:var(--in-tech-bg); color:var(--in-tech); }
 
 /* Expanded detail */
 .detail-row td { padding:0; }
-.detail-content { padding:16px 14px 16px 48px; display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px; }
-.detail-section h4 { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:8px; }
-.detail-section p, .detail-section li { color:var(--text); margin-bottom:4px; }
+.detail-content { padding:14px 12px 14px 40px; display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:13px; }
+.detail-section h4 { font-size:10px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px; }
+.detail-section p, .detail-section li { color:var(--text); margin-bottom:3px; }
 .detail-section ul { list-style:none; padding:0; }
 .detail-section ul li::before { content:"→ "; color:var(--accent); }
-.detail-links a { color:var(--accent); text-decoration:none; margin-right:16px; font-size:12px; }
+.detail-links a { color:var(--accent); text-decoration:none; margin-right:14px; font-size:12px; }
 .detail-links a:hover { text-decoration:underline; }
 
-/* Milestone bar */
-.milestone-bar { display:flex; gap:4px; align-items:center; margin-top:8px; }
-.ms-dot { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
-.ms-done { background:var(--on-track); color:#fff; }
-.ms-pending { background:var(--border); color:var(--text-muted); }
-.ms-na { background:transparent; border:1px dashed var(--border); color:var(--text-muted); }
-
 /* Gantt view */
-.gantt-container { margin-bottom:32px; }
-.gantt-row { display:grid; grid-template-columns:240px 1fr; align-items:center; border-bottom:1px solid var(--border); min-height:36px; }
-.gantt-label { padding:8px 14px; font-size:13px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.gantt-track { position:relative; height:24px; margin:4px 0; }
-.gantt-bar { position:absolute; height:100%; border-radius:4px; min-width:4px; }
-.gantt-header { display:grid; grid-template-columns:240px 1fr; border-bottom:2px solid var(--border); padding-bottom:8px; margin-bottom:4px; }
-.gantt-header .label { font-size:11px; text-transform:uppercase; color:var(--text-muted); padding:0 14px; }
+.gantt-container { margin-bottom:24px; }
+.gantt-row { display:grid; grid-template-columns:220px 1fr; align-items:center; border-bottom:1px solid var(--border-light); min-height:32px; cursor:pointer; }
+.gantt-row:hover { background:var(--surface); }
+.gantt-label { padding:6px 12px; font-size:12px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gantt-milestones { grid-column:1/-1; padding:8px 12px 10px 24px; background:var(--surface); border-bottom:1px solid var(--border-light); }
+.gantt-milestones ul { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:4px 16px; font-size:12px; }
+.gantt-milestones li { display:flex; justify-content:space-between; gap:8px; padding:2px 0; }
+.gantt-milestones li .ms-label { color:var(--text-muted); }
+.gantt-milestones li .ms-value { font-weight:600; color:var(--text); }
+.gantt-track { position:relative; height:20px; margin:3px 0; }
+.gantt-bar { position:absolute; height:100%; border-radius:3px; min-width:4px; }
+.gantt-header { display:grid; grid-template-columns:220px 1fr; border-bottom:2px solid var(--border); padding-bottom:6px; margin-bottom:4px; }
+.gantt-header .label { font-size:10px; text-transform:uppercase; color:var(--text-muted); padding:0 12px; }
 .gantt-weeks { display:flex; justify-content:space-between; padding:0 4px; }
-.gantt-weeks span { font-size:10px; color:var(--text-muted); }
-.gantt-freeze { position:absolute; background:rgba(239,68,68,0.08); border-left:1px dashed rgba(239,68,68,0.4); border-right:1px dashed rgba(239,68,68,0.4); top:0; bottom:0; z-index:1; }
+.gantt-weeks span { font-size:9px; color:var(--text-muted); }
+.gantt-freeze { position:absolute; background:rgba(181,52,42,0.05); border-left:1px dashed rgba(181,52,42,0.25); border-right:1px dashed rgba(181,52,42,0.25); top:0; bottom:0; z-index:1; }
 .gantt-today { position:absolute; width:2px; background:var(--accent); top:0; bottom:0; z-index:2; }
+.gantt-dot { position:absolute; width:8px; height:8px; border-radius:50%; top:50%; transform:translate(-50%,-50%); z-index:3; border:1.5px solid #fff; cursor:help; box-shadow:0 0 0 1px rgba(0,0,0,0.15); }
+.gantt-dot.ms-done { background:var(--on-track); }
+.gantt-dot.ms-pending { background:var(--text-muted); }
+.gantt-dot.ms-launch { background:var(--accent); width:9px; height:9px; }
+.gantt-ms-row { background:var(--surface); min-height:24px !important; }
+.gantt-ms-row:hover { background:var(--surface) !important; }
 
-/* Launched/pushed bucket */
-.bucket { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:24px; }
-.bucket h3 { font-size:14px; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-.bucket-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:10px; }
-.bucket-card { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; }
-.bucket-card .card-name { font-weight:500; font-size:13px; margin-bottom:4px; }
+/* Risks & Watch */
+.rw-section { margin-bottom:24px; }
+.rw-section h2 { font-size:13px; text-transform:uppercase; letter-spacing:0.5px; color:var(--accent); margin-bottom:14px; font-weight:700; }
+.rw-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:10px; }
+.rw-card { background:var(--surface); border:1px solid var(--border-light); border-radius:8px; padding:14px 16px; border-left:4px solid var(--border); position:relative; }
+.rw-card.sev-high { border-left-color:var(--blocked); }
+.rw-card.sev-medium { border-left-color:var(--at-risk); }
+.rw-card.sev-watch { border-left-color:var(--in-tech); }
+.rw-card-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+.rw-card-name { font-weight:600; font-size:13px; color:var(--text); }
+.rw-badge { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; padding:2px 7px; border-radius:3px; }
+.rw-badge-high { background:var(--blocked-bg); color:var(--blocked); }
+.rw-badge-medium { background:var(--at-risk-bg); color:var(--at-risk); }
+.rw-badge-watch { background:var(--in-tech-bg); color:var(--in-tech); }
+.rw-weeks { font-size:10px; color:var(--text-muted); margin-left:auto; white-space:nowrap; }
+.rw-card-body { font-size:13px; color:var(--text); line-height:1.5; margin-bottom:6px; }
+.rw-card-action { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:4px; }
+.rw-card-action strong { color:var(--text); font-weight:600; }
+.rw-card-links { display:flex; gap:6px; margin-top:8px; }
+
+/* Launched bucket */
+.bucket { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:24px; }
+.bucket h3 { font-size:13px; font-weight:600; margin-bottom:10px; display:flex; align-items:center; gap:6px; text-transform:uppercase; letter-spacing:0.4px; color:var(--text-muted); }
+.bucket-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:8px; }
+.bucket-card { background:var(--surface-hover); border:1px solid var(--border-light); border-radius:6px; padding:10px; }
+.bucket-card .card-name { font-weight:500; font-size:13px; margin-bottom:3px; color:var(--text); }
 .bucket-card .card-meta { font-size:11px; color:var(--text-muted); }
 
+/* Pushed/deferred row */
+tbody tr.launched-row { background:var(--launched-bg); }
+
 /* Auto-interpreted tag */
-.auto-tag { background:rgba(168,85,247,0.15); color:#c084fc; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:600; margin-left:6px; vertical-align:middle; }
+.auto-tag { background:rgba(107,79,168,0.1); color:var(--launched); font-size:9px; padding:1px 5px; border-radius:3px; font-weight:600; margin-left:5px; vertical-align:middle; }
 
 /* Print */
 @media print {
   body { background:#fff; color:#000; }
-  .controls, .team-nav, .header-right, .view-toggle { display:none; }
-  .stat-card, .bucket, table { border-color:#ddd; }
-  .stat-card { background:#f9f9f9; }
+  .controls, .team-nav, .view-toggle { display:none; }
+  .stat-card, .bucket, .tldr, .rw-card, table { border-color:#ddd; }
+  .stat-card, .tldr, .rw-card { background:#f9f9f9; }
   .container { max-width:100%; padding:12px; }
   table { font-size:11px; }
   .pill { border:1px solid currentColor; }
@@ -146,7 +215,8 @@ td.name-cell .init-name:hover { color:var(--accent); }
 
 /* Responsive */
 @media (max-width:768px) {
-  .stats-bar { grid-template-columns:repeat(3, 1fr); }
+  .stats-bar { flex-wrap:wrap; }
+  .stat-card { min-width:80px; }
   .detail-content { grid-template-columns:1fr; }
   .search-box { width:100%; }
 }
@@ -156,13 +226,13 @@ td.name-cell .init-name:hover { color:var(--accent); }
 <div class="container" id="app">
   <div class="header">
     <div>
+      <div class="header-badge">EDU Weekly Roadmap</div>
       <h1>EDU Q4 Weekly Report</h1>
       <div class="subtitle" id="reportWeek"></div>
     </div>
-    <div class="header-right">
-      <div class="freeze-badge" id="freezeBadge"></div>
-    </div>
   </div>
+
+  <div class="tldr" id="tldrBox"></div>
 
   <div class="stats-bar" id="statsBar"></div>
   <div class="team-nav" id="teamNav"></div>
@@ -180,6 +250,13 @@ td.name-cell .init-name:hover { color:var(--accent); }
       <option value="">All Phases</option>
       <option value="IN TECH">In Tech</option>
       <option value="NOT STARTED">Not Started</option>
+      <option value="LAUNCHED">Launched</option>
+    </select>
+    <select class="filter-select" id="ownerFilter">
+      <option value="">All Owners</option>
+    </select>
+    <select class="filter-select" id="engLeadFilter">
+      <option value="">All Eng Leads</option>
     </select>
     <div class="view-toggle">
       <button class="active" data-view="table" onclick="setView('table')">Table</button>
@@ -191,67 +268,1079 @@ td.name-cell .init-name:hover { color:var(--accent); }
   <div id="tableView" class="table-wrap"></div>
   <div id="ganttView" class="gantt-container" style="display:none"></div>
 
+  <div id="risksAndWatch"></div>
   <div id="launchedBucket"></div>
-  <div id="pushedBucket"></div>
 </div>
 
 <script>
 let DATA = null;
 let currentTeam = 'all';
+let currentStatus = '';
 let currentView = 'table';
 let sortCol = 'team';
 let sortAsc = true;
 let expandedRows = new Set();
+let expandedGanttRows = new Set();
 
 async function init() {
   try {
-    const resp = await fetch('data/roadmap.json');
-    DATA = await resp.json();
+    DATA = {
+  "meta": {
+    "generated": "2026-11-11T14:52:58.551009",
+    "source": "Google Sheet 14KsB_5McMVOZ6yn1wX5bRbSNQUyp81-2zwuusZX40Fg",
+    "weekOf": "2026-11-10",
+    "reportWeek": "Week of Nov 10, 2026",
+    "lastRefreshed": "Nov 11, 2026 02:52 PM",
+    "codeFreeze": {
+      "start": "2026-12-16",
+      "end": "2027-01-05"
+    },
+    "companyShutdown": {
+      "start": "2026-12-25",
+      "end": "2026-12-31"
+    },
+    "holidays": {
+      "thanksgiving": [
+        "2026-11-26",
+        "2026-11-27"
+      ]
+    }
+  },
+  "teams": [
+    "Charlotte",
+    "edX",
+    "HEN",
+    "Affiliates",
+    "Partnerships",
+    "Product"
+  ],
+  "initiatives": [
+    {
+      "id": "26Q4-32",
+      "name": "Admissions Recommendations",
+      "team": "Charlotte",
+      "bizOwner": "Ana Sof\u00eda Acu\u00f1a Gonz\u00e1lez",
+      "engLead": "Kidany Figueroa",
+      "epic": "EDUN-16970",
+      "slackChannel": "C0CALB4Q2M9",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066894484",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Nov 6",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 26",
+        "uatDone": "Dec 4",
+        "launch": "Dec 7"
+      },
+      "notes": "Eng work complete per Kidany (Nov 10). Remaining delivery depends on business config, creative, and data. BAU improvements only going forward.",
+      "bizOwnerSlackId": "U07G4N0523D",
+      "engLeadSlackId": "U092UF27DT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 14,
+        "inProgress": 1,
+        "backlog": 10,
+        "total": 25,
+        "pctComplete": 56
+      }
+    },
+    {
+      "id": "26Q4-12",
+      "name": "Partner Dash Admin Enhancements",
+      "team": "Charlotte",
+      "bizOwner": "Norimar Gayoso Sifre",
+      "engLead": "Jason Sosa Pagan",
+      "epic": "EDUN-17273",
+      "slackChannel": "C0CBLUTFBSL",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103067287597",
+      "phase": "NOT STARTED",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Nov 6",
+        "techStart": "Nov 13",
+        "techEnd": "Dec 24",
+        "uatDone": "Jan 8",
+        "launch": "Jan 11"
+      },
+      "notes": "S32-S37. Kickoff Thu Nov 13 confirmed. EDUN-19039 (filter testing) added to scope per Nori.",
+      "bizOwnerSlackId": "U03TVLG5YJX",
+      "engLeadSlackId": "U0AMT9CSREH",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11"
+    },
+    {
+      "id": "26Q4-075",
+      "name": "Email Lifecycle (Kamino)",
+      "team": "Charlotte",
+      "bizOwner": "Norimar / Camila Sadurni",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
+      "epic": "EDUN-15233",
+      "slackChannel": "C0C563QN1M3",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102769000676",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "Nov 20",
+        "handoffToTech": "Nov 20",
+        "techStart": "Nov 27",
+        "techEnd": "Feb 11",
+        "uatDone": "Feb 18",
+        "launch": "Feb 22"
+      },
+      "notes": "Phase 7 QA deployed to prod. Creative template gen (EDOP-1365) in discussion. ~46% tickets complete.",
+      "bizOwnerSlackId": "U03TVLG5YJX",
+      "engLeadSlackId": "U0AA2HUF6QJ",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 21,
+        "abandoned": 2,
+        "inProgress": 0,
+        "backlog": 27,
+        "total": 50,
+        "pctComplete": 46,
+        "note": "hasNextPage \u2014 more backlog tickets on page 2"
+      }
+    },
+    {
+      "id": "26Q3-74",
+      "name": "Program Finder",
+      "team": "Charlotte",
+      "bizOwner": "Isabel Mirand\u00e9s Su\u00e1rez",
+      "engLead": "Joe Rodriguez",
+      "epic": "EDUN-14085",
+      "slackChannel": "C0B90H2FJKY",
+      "prd": "https://redventures.atlassian.net/wiki/x/kIBw7Bc",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "Q3",
+        "handoffToTech": "Q3",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 26",
+        "uatDone": "Dec 4",
+        "launch": "Dec 7"
+      },
+      "notes": "Font hosting pending (arch team review). Mock tenant env mismatch blocking SLT demo Nov 12. 80% tickets complete.",
+      "bizOwnerSlackId": "U05HUP14P6C",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 15,
+        "abandoned": 9,
+        "inProgress": 2,
+        "backlog": 4,
+        "total": 30,
+        "pctComplete": 80
+      }
+    },
+    {
+      "id": "26Q4-70 / 26Q4-13",
+      "name": "Partner Dash Phase 5 \u2014 AI Chatbot",
+      "team": "Charlotte",
+      "bizOwner": "Norimar Gayoso Sifre",
+      "engLead": "Joe Rodriguez",
+      "epic": "TBD",
+      "slackChannel": "C0CAWAWJQP6",
+      "prd": "https://redventures.atlassian.net/wiki/x/KgBO-xc",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Nov 10",
+        "handoffToTech": "Jan 15",
+        "techStart": "Jan 29",
+        "techEnd": "Feb 25",
+        "uatDone": "Mar 4",
+        "launch": "Mar 8"
+      },
+      "notes": "Pushed to S5-S8 2027. Not Q4 required.",
+      "bizOwnerSlackId": "U03TVLG5YJX",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-14",
+      "name": "Partner Dash Phase 6",
+      "team": "Charlotte",
+      "bizOwner": "Norimar Gayoso Sifre",
+      "engLead": "Jason Sosa Pagan",
+      "epic": "EDUN-18346",
+      "slackChannel": "C0CASCK8UTC",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103067615286",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Complete",
+        "handoffToTech": "Dec 19",
+        "techStart": "Jan 1",
+        "techEnd": "Jan 21",
+        "uatDone": "Jan 28",
+        "launch": "Feb 1"
+      },
+      "notes": "Pushed to S1-S3 2027. Designs ready. Not Q4 required.",
+      "bizOwnerSlackId": "U03TVLG5YJX",
+      "engLeadSlackId": "U0AMT9CSREH",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q3-79",
+      "name": "Charlotte Brand Compliance P2",
+      "team": "Charlotte",
+      "bizOwner": "Owen Heath",
+      "engLead": "Joe Rodriguez",
+      "epic": "EDUN-14149",
+      "slackChannel": "C0BG8SBD0K0",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102780239942",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Feb 3",
+        "handoffToTech": "Feb 12",
+        "techStart": "Feb 19",
+        "techEnd": "Mar 11",
+        "uatDone": "Mar 18",
+        "launch": "Mar 22"
+      },
+      "notes": "Pushed to S8-S10 2027. Not Q4 required.",
+      "bizOwnerSlackId": "U6HPQFQLU",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-26",
+      "name": "Checkout Experience (Phase 1)",
+      "team": "edX",
+      "bizOwner": "Alani Lay Fumero",
+      "engLead": "Joe Rodriguez",
+      "epic": "EDUN-17480",
+      "slackChannel": "C0CAW9L3TCL",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066042487",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "Oct 28",
+        "handoffToTech": "Oct 28",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 19",
+        "uatDone": "Nov 30",
+        "launch": "Dec 2"
+      },
+      "notes": "Active S31. Monarch partner key approach still in exploration (custom trait + URL param won't work post-checkout-rule). 48% tickets complete.",
+      "bizOwnerSlackId": "U097XS4BQJV",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 9,
+        "abandoned": 1,
+        "inProgress": 5,
+        "backlog": 6,
+        "total": 21,
+        "pctComplete": 48
+      }
+    },
+    {
+      "id": "26Q4-26-p2",
+      "name": "Checkout Experience (Phase 2)",
+      "team": "edX",
+      "bizOwner": "Alani Lay Fumero",
+      "engLead": "Joe Rodriguez",
+      "epic": "TBD",
+      "slackChannel": "C0CAW9L3TCL",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066042487",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Nov 10",
+        "handoffToTech": "Dec 19",
+        "techStart": "Jan 1",
+        "techEnd": "Jan 21",
+        "uatDone": "Jan 28",
+        "launch": "Feb 1"
+      },
+      "notes": "Phase 2 from Checkout split. S1-S3 2027.",
+      "bizOwnerSlackId": "U097XS4BQJV",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-22",
+      "name": "GTM Course Launch Experience",
+      "team": "edX",
+      "bizOwner": "Carlos Covas",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
+      "epic": "EDUN-17479",
+      "slackChannel": "C0CAWAS1CFN",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066599522",
+      "phase": "LAUNCHED",
+      "status": "LAUNCHED",
+      "milestones": {
+        "creativeDone": "Complete",
+        "handoffToTech": "Complete",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 12",
+        "uatDone": "N/A",
+        "launch": "Nov 9"
+      },
+      "notes": "Launched Nov 9. S31.",
+      "bizOwnerSlackId": "U023GUWNM54",
+      "engLeadSlackId": "U0AA2HUF6QJ",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q3-48",
+      "name": "Search Page Revamp",
+      "team": "edX",
+      "bizOwner": "Carlos Covas",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
+      "epic": "EDUN-14823",
+      "slackChannel": "C0BFYRKHL4V",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102753894406",
+      "phase": "LAUNCHED",
+      "status": "LAUNCHED",
+      "milestones": {
+        "creativeDone": "Complete",
+        "handoffToTech": "Complete",
+        "techStart": "Q3 rollover",
+        "techEnd": "Sep 24",
+        "uatDone": "N/A",
+        "launch": "Nov 9"
+      },
+      "notes": "Q3 rollover. 28/32 tickets closed. Launched Nov 9.",
+      "bizOwnerSlackId": "U023GUWNM54",
+      "engLeadSlackId": "U0AA2HUF6QJ",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q2-027",
+      "name": "Product Cards DE Configurability",
+      "team": "edX",
+      "bizOwner": "Alex Agosto",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
+      "epic": "EDUN-10643",
+      "slackChannel": "C0B66RH67PS",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/RV2U/pages/102453706764",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "Complete",
+        "handoffToTech": "Complete",
+        "techStart": "Q2 rollover",
+        "techEnd": "Sep 17",
+        "uatDone": "TBD",
+        "launch": "TBD"
+      },
+      "notes": "Blocker resolved (Search Revamp launched Nov 9). 1 remaining ticket (EDUN-15399, data binding). 90% active scope complete.",
+      "bizOwnerSlackId": "U075GG9PMNW",
+      "engLeadSlackId": "U0AA2HUF6QJ",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 9,
+        "abandoned": 16,
+        "inProgress": 0,
+        "backlog": 1,
+        "total": 26,
+        "pctComplete": 90,
+        "note": "16 abandoned from original Q2 approach"
+      }
+    },
+    {
+      "id": "26Q4-25",
+      "name": "Upgrade Experience / Monarch Revamp",
+      "team": "edX",
+      "bizOwner": "Alondra Mendoza / Gabriela Arroyo",
+      "engLead": "Joe Rodriguez",
+      "epic": "EDUN-16595",
+      "slackChannel": "C0CAMA0H7EH",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103065190458",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Nov 25",
+        "handoffToTech": "Jan 12",
+        "techStart": "Jan 15",
+        "techEnd": "Jan 28",
+        "uatDone": "Feb 4",
+        "launch": "Feb 8"
+      },
+      "notes": "Pushed to S3-S4 2027. Not Q4 required.",
+      "bizOwnerSlackId": "U097FCW6M3Q",
+      "engLeadSlackId": "U08NS5RST6U",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-23",
+      "name": "Spotlight / Sponsored Module",
+      "team": "edX",
+      "bizOwner": "Natalia Fernandez",
+      "engLead": "Kidany Figueroa",
+      "epic": "EDUN-17272",
+      "slackChannel": "C0CAUFC2AQ1",
+      "prd": "Draft, not yet published",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "TBD",
+        "handoffToTech": "TBD",
+        "techStart": "Nov 20",
+        "techEnd": "Jan 28",
+        "uatDone": "TBD",
+        "launch": "TBD"
+      },
+      "notes": "PRD in draft. Not in revised eng plan. No eng required.",
+      "bizOwnerSlackId": "U077DT43FME",
+      "engLeadSlackId": "U092UF27DT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q2-024",
+      "name": "Comparison Tool Iterations",
+      "team": "edX",
+      "bizOwner": "Alani Lay Fumero / Natalia Fernandez",
+      "engLead": "Eduardo P\u00e9rez Cort\u00e9s",
+      "epic": "EDUN-10628",
+      "slackChannel": "C0AF1Q68N76",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/RV2U/pages/102450495637",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Dec 23",
+        "handoffToTech": "Jan 5",
+        "techStart": "Jan 8",
+        "techEnd": "Feb 18",
+        "uatDone": "Feb 25",
+        "launch": "Mar 1"
+      },
+      "notes": "Pushed to S2-S7 2027. Not Q4 required.",
+      "bizOwnerSlackId": "U097XS4BQJV",
+      "engLeadSlackId": "U0AA2HUF6QJ",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q3-85",
+      "name": "LPO in HEN (Contentful Migration)",
+      "team": "HEN",
+      "bizOwner": "Julian Silva",
+      "engLead": "Kidany Figueroa",
+      "epic": "EDUN-16004",
+      "slackChannel": "C0C1TBA777D",
+      "prd": "TBD",
+      "phase": "IN TECH",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "Q3",
+        "handoffToTech": "Q3",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 12",
+        "uatDone": "Nov 19",
+        "launch": "Nov 30"
+      },
+      "notes": "Pushing to launch test without DE integration by EOW. Design/UI ready per Jonathan. ~100% tickets complete.",
+      "bizOwnerSlackId": "U05GQFUN8ET",
+      "engLeadSlackId": "U092UF27DT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 50,
+        "inProgress": 0,
+        "backlog": 0,
+        "total": 50,
+        "pctComplete": 100,
+        "note": "hasNextPage \u2014 all page 1 tickets Done"
+      }
+    },
+    {
+      "id": "26Q4-66",
+      "name": "Tools in DE",
+      "team": "HEN",
+      "bizOwner": "TBD",
+      "engLead": "Rogelio Vazquez-Rivera",
+      "epic": "EDUN-16971",
+      "slackChannel": "C0CAUFR2G73",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103103660033",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Nov 6",
+        "techStart": "Nov 13",
+        "techEnd": "Nov 25",
+        "uatDone": "Dec 4",
+        "launch": "Dec 7"
+      },
+      "notes": "S32-S33. PRD handoff in progress (Maria Cristina + Ariana). Business owner gap still open. PRD last modified Sep 9.",
+      "bizOwnerSlackId": null,
+      "engLeadSlackId": "U089X3AMRT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11"
+    },
+    {
+      "id": "26Q4-20",
+      "name": "Tools QDF Widget Placement",
+      "team": "HEN",
+      "bizOwner": "Luly Porro-Cabrera",
+      "engLead": "Rogelio Vazquez-Rivera",
+      "epic": "EDUN-16972",
+      "slackChannel": "C0CBM0AML0G",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066697748",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Nov 20",
+        "techStart": "Nov 30",
+        "techEnd": "Dec 17",
+        "uatDone": "Dec 24",
+        "launch": "Jan 6"
+      },
+      "notes": "S34-S36. Launch Baseline Jan 5.",
+      "bizOwnerSlackId": "U07PJG74H18",
+      "engLeadSlackId": "U089X3AMRT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-33",
+      "name": "WP Agent ReBuild Phase 1",
+      "team": "HEN",
+      "bizOwner": "Marie Custodio Collazo",
+      "engLead": "Johan Rivera",
+      "epic": "TBD",
+      "slackChannel": "C0BULBGMBFE",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103083114556",
+      "phase": "NOT STARTED",
+      "status": "ON TRACK",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Nov 20",
+        "techStart": "Nov 30",
+        "techEnd": "Jan 14",
+        "uatDone": "Jan 21",
+        "launch": "Jan 25"
+      },
+      "notes": "S34-S2 2027. Countdown clock cut from scope.",
+      "bizOwnerSlackId": "U0740RN4S4T",
+      "engLeadSlackId": "U014S4GFPU7",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-29",
+      "name": "Student Loans Sticky CTA",
+      "team": "HEN",
+      "bizOwner": "Luly Porro-Cabrera",
+      "engLead": "Rogelio Vazquez-Rivera",
+      "epic": "EDUN-16841",
+      "slackChannel": "C0CAUFQ0LLR",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103067222041",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Jan 8",
+        "techStart": "Jan 15",
+        "techEnd": "Feb 4",
+        "uatDone": "Feb 11",
+        "launch": "Feb 15"
+      },
+      "notes": "Pushed to S3-S5 2027. Not Q4 required.",
+      "bizOwnerSlackId": "U07PJG74H18",
+      "engLeadSlackId": "U089X3AMRT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-30",
+      "name": "Student Loans SPIKE + Scale",
+      "team": "HEN",
+      "bizOwner": "Luly Porro-Cabrera",
+      "engLead": "Johan Rivera",
+      "epic": "EDUN-16534",
+      "slackChannel": "C0C9FF2CLP9",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103066927129",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "N/A",
+        "techStart": "Jan 29",
+        "techEnd": "Feb 18",
+        "uatDone": "N/A",
+        "launch": "Mar 1"
+      },
+      "notes": "Revised to S31 only. P0-P3 + P4-T1 complete.",
+      "bizOwnerSlackId": "U07PJG74H18",
+      "engLeadSlackId": "U014S4GFPU7",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q3-11",
+      "name": "Monetizable Link Bulk Creation",
+      "team": "Affiliates",
+      "bizOwner": "Jessy Epley",
+      "engLead": "Rogelio Vazquez-Rivera",
+      "epic": "EDUN-16995",
+      "slackChannel": "C0CALBV4QQK",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/102734299327",
+      "phase": "IN TECH",
+      "status": "AT RISK",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Oct 23",
+        "techStart": "Nov 6",
+        "techEnd": "Nov 19",
+        "uatDone": "Nov 19",
+        "launch": "Nov 30"
+      },
+      "notes": "1-sprint delay (unplanned PTO). Delivery pushed S31\u2192S32. Tech End Nov 19. 79% tickets complete.",
+      "bizOwnerSlackId": "U010TS5000P",
+      "engLeadSlackId": "U089X3AMRT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 15,
+        "inProgress": 1,
+        "backlog": 3,
+        "total": 19,
+        "pctComplete": 79
+      }
+    },
+    {
+      "id": "26Q4-15",
+      "name": "EDUN Lead Rerouter",
+      "team": "Partnerships",
+      "bizOwner": "Joaqu\u00edn Nieves",
+      "engLead": "Rogelio Vazquez-Rivera",
+      "epic": "EDUN-17078",
+      "slackChannel": "C0CAQKU3VFG",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103067353159",
+      "phase": "NOT STARTED",
+      "status": "AT RISK",
+      "milestones": {
+        "creativeDone": "Nov 25",
+        "handoffToTech": "Nov 25",
+        "techStart": "Nov 30",
+        "techEnd": "Dec 24",
+        "uatDone": "Jan 8",
+        "launch": "Jan 11"
+      },
+      "notes": "Eng start pushed S31\u2192S34. Creative needed (EDOP-1578). PRD V0.2.",
+      "bizOwnerSlackId": "U05GYCC347Q",
+      "engLeadSlackId": "U089X3AMRT6",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-34",
+      "name": "Dashboard Design Updates",
+      "team": "Product",
+      "bizOwner": "Camila Sadurni",
+      "engLead": "Johan Rivera",
+      "epic": "EDUN-17367",
+      "slackChannel": "C0C0VNYBTB8",
+      "prd": "https://redventures.atlassian.net/wiki/spaces/EDU/pages/103067254903",
+      "phase": "NOT STARTED",
+      "status": "NOT STARTED",
+      "milestones": {
+        "creativeDone": "Complete",
+        "handoffToTech": "Jan 15",
+        "techStart": "Jan 22",
+        "techEnd": "Feb 4",
+        "uatDone": "Feb 11",
+        "launch": "Feb 15"
+      },
+      "notes": "Pushed to S4-S5 2027. Blocked by Composable Exp.",
+      "bizOwnerSlackId": "U05H7FEPA4U",
+      "engLeadSlackId": "U014S4GFPU7",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "26Q4-64",
+      "name": "Composable Experiences Phase 1",
+      "team": "Product",
+      "bizOwner": "Camila Sadurni",
+      "engLead": "Johan Rivera",
+      "epic": "EDUN-17116",
+      "slackChannel": "C0BUDHBMZHA",
+      "prd": "https://redventures.atlassian.net/wiki/x/GYAVABg",
+      "phase": "IN TECH",
+      "status": "AT RISK",
+      "milestones": {
+        "creativeDone": "N/A",
+        "handoffToTech": "Oct 23",
+        "techStart": "Nov 6",
+        "techEnd": "Dec 17",
+        "uatDone": "Dec 24",
+        "launch": "Jan 6"
+      },
+      "notes": "Data-binding bug fixed (Rogelio, Nov 11). Active development per Slack. All 24 Jira tickets still in Backlog \u2014 may not reflect actual progress.",
+      "bizOwnerSlackId": "U05H7FEPA4U",
+      "engLeadSlackId": "U014S4GFPU7",
+      "autoInterpreted": false,
+      "lastUpdated": "2026-11-11",
+      "ticketProgress": {
+        "done": 0,
+        "inProgress": 0,
+        "backlog": 24,
+        "total": 24,
+        "pctComplete": 0,
+        "note": "Tickets not reflecting actual Slack-visible work"
+      }
+    }
+  ],
+  "narrative": {
+    "tldr": "25 initiative channels swept (full 3-pass protocol). Jira verified for all In Tech epics. Roadmap updated on Google Sheet.\n\n**Portfolio snapshot:** 25 initiatives tracked. 8 In Tech, 2 Launched, 15 Not Started. Three AT RISK (Composable Exp, Monetizable Link, EDUN Lead Rerouter), one formerly BLOCKED now ON TRACK (Product Cards DE).\n\n**Key movements this week:**\n- **Admissions Recs** \u2014 Kidany confirmed no more engineering work needed (Nov 10). Remaining delivery is business config, creative, and data.\n- **Product Cards DE** \u2014 BLOCKED \u2192 ON TRACK. Search Revamp launched, blocker cleared. 1 ticket remaining.\n- **Monetizable Link** \u2014 ON TRACK \u2192 AT RISK. 1-sprint delay (unplanned PTO). Tech End pushed Nov 12\u2192Nov 19.\n- **LPO in HEN** \u2014 Pushing to launch test without DE integration by EOW. ~100% tickets complete.\n- **Composable Exp P1** \u2014 Data-binding bug fixed (Rogelio, Nov 11) but all 24 Jira tickets still Backlog. Remains AT RISK.\n- **Program Finder** \u2014 Font hosting pending, mock tenant env blocking SLT demo. 80% tickets complete.\n- **Tools in DE** \u2014 PRD handoff in progress ahead of Nov 13 Tech Start. Business owner still TBD.\n- **Partner Dash Admin** \u2014 Kickoff confirmed Thu Nov 13. EDUN-19039 added to scope.",
+    "riskRegister": [
+      {
+        "initiative": "Composable Experiences Phase 1",
+        "risk": "All 24 Jira tickets still Backlog despite active Slack development. Ticket tracking not reflecting work.",
+        "severity": "High",
+        "action": "Request ticket status update from Johan/Rogelio.",
+        "weeksAtRisk": 4,
+        "owner": "Camila Sadurni",
+        "team": "Product",
+        "slackChannel": "C0BUDHBMZHA"
+      },
+      {
+        "initiative": "Monetizable Link Bulk Creation",
+        "risk": "1-sprint delay due to unplanned PTO. Tech End pushed Nov 12\u2192Nov 19.",
+        "severity": "Medium",
+        "action": "Monitor S32 delivery progress.",
+        "weeksAtRisk": 1,
+        "owner": "Jessy Epley",
+        "team": "Affiliates",
+        "slackChannel": "C0CALBV4QQK"
+      },
+      {
+        "initiative": "EDUN Lead Rerouter",
+        "risk": "PRD still V0.2. Creative needed (EDOP-1578). Eng start pushed to S34.",
+        "severity": "Medium",
+        "action": "Creative ticket status check.",
+        "weeksAtRisk": 3,
+        "owner": "Joaqu\u00edn Nieves",
+        "team": "Partnerships",
+        "slackChannel": "C0CAQKU3VFG"
+      },
+      {
+        "initiative": "Program Finder",
+        "risk": "Font hosting pending (arch team). Mock tenant env mismatch blocking SLT demo.",
+        "severity": "Medium",
+        "action": "Track font hosting resolution and demo workaround.",
+        "weeksAtRisk": 1,
+        "owner": "Isabel Mirand\u00e9s Su\u00e1rez",
+        "team": "Charlotte",
+        "slackChannel": "C0B90H2FJKY"
+      },
+      {
+        "initiative": "Tools in DE",
+        "risk": "Business owner still TBD. PRD last modified Sep 9. Tech Start Nov 13.",
+        "severity": "Medium",
+        "action": "Confirm PRD handoff readiness and owner assignment.",
+        "weeksAtRisk": 1,
+        "owner": "TBD",
+        "team": "HEN",
+        "slackChannel": "C0CAUFR2G73"
+      }
+    ],
+    "watchList": [
+      {
+        "text": "LPO in HEN: Does launch test happen by EOW?",
+        "initiative": "LPO in HEN (Contentful Migration)",
+        "owner": "Julian Silva",
+        "team": "HEN"
+      },
+      {
+        "text": "Admissions Recs: Business config/creative/data timeline?",
+        "initiative": "Admissions Recommendations",
+        "owner": "Ana Sof\u00eda Acu\u00f1a Gonz\u00e1lez",
+        "team": "Charlotte"
+      },
+      {
+        "text": "Checkout P1: Monarch partner key approach resolution?",
+        "initiative": "Checkout Experience (Phase 1)",
+        "owner": "Alani Lay Fumero",
+        "team": "edX"
+      }
+    ],
+    "checkInResponsiveness": {
+      "reacted": [],
+      "noReaction": [
+        "GTM Course Launch (Carlos Covas)",
+        "Search Page Revamp (Carlos Covas)",
+        "Tools in DE",
+        "LPO in HEN (thank_you from Stephanie, not tagged owner Julian)"
+      ],
+      "noCheckInPosted": []
+    },
+    "movements": [
+      {
+        "initiative": "Product Cards DE Configurability",
+        "from": "BLOCKED",
+        "to": "ON TRACK",
+        "detail": "Search Revamp launched Nov 9 \u2014 blocker cleared. 1 remaining ticket."
+      },
+      {
+        "initiative": "Monetizable Link Bulk Creation",
+        "from": "ON TRACK",
+        "to": "AT RISK",
+        "detail": "1-sprint delay (unplanned PTO). Tech End Nov 12\u2192Nov 19."
+      }
+    ]
+  },
+  "summary": {
+    "total": 25,
+    "activeThisQuarter": 16,
+    "launched": 2,
+    "pushedTo2027": 7,
+    "byStatus": {
+      "ON TRACK": 8,
+      "NOT STARTED": 12,
+      "LAUNCHED": 2,
+      "BLOCKED": 0,
+      "AT RISK": 3
+    },
+    "byPhase": {
+      "IN TECH": 8,
+      "NOT STARTED": 15,
+      "LAUNCHED": 2
+    },
+    "byTeam": {
+      "Charlotte": {
+        "total": 7,
+        "active": 4,
+        "pushed": 3,
+        "launched": 0
+      },
+      "edX": {
+        "total": 8,
+        "active": 4,
+        "pushed": 2,
+        "launched": 2
+      },
+      "HEN": {
+        "total": 6,
+        "active": 5,
+        "pushed": 1,
+        "launched": 0
+      },
+      "Affiliates": {
+        "total": 1,
+        "active": 1,
+        "pushed": 0,
+        "launched": 0
+      },
+      "Partnerships": {
+        "total": 1,
+        "active": 1,
+        "pushed": 0,
+        "launched": 0
+      },
+      "Product": {
+        "total": 2,
+        "active": 1,
+        "pushed": 1,
+        "launched": 0
+      }
+    },
+    "q4Active": [
+      "Admissions Recommendations",
+      "Partner Dash Admin Enhancements",
+      "Email Lifecycle (Kamino)",
+      "Program Finder",
+      "Checkout Experience (Phase 1)",
+      "Checkout Experience (Phase 2)",
+      "Product Cards DE Configurability",
+      "Spotlight / Sponsored Module",
+      "LPO in HEN (Contentful Migration)",
+      "Tools in DE",
+      "Tools QDF Widget Placement",
+      "WP Agent ReBuild Phase 1",
+      "Student Loans SPIKE + Scale",
+      "Monetizable Link Bulk Creation",
+      "EDUN Lead Rerouter",
+      "Composable Experiences Phase 1"
+    ]
+  },
+  "prevSummary": {
+    "total": 25,
+    "launched": 2,
+    "byStatus": {
+      "ON TRACK": 8,
+      "NOT STARTED": 12,
+      "LAUNCHED": 2,
+      "BLOCKED": 1,
+      "AT RISK": 2
+    }
+  }
+};
   } catch(e) {
-    // Fallback: try inline
     document.getElementById('app').innerHTML = '<p style="color:var(--at-risk);padding:40px">Could not load roadmap.json. Make sure data/roadmap.json exists.</p>';
     return;
   }
   renderHeader();
+  renderTldr();
   renderStats();
+  populateOwnerFilter();
   renderTeamNav();
   renderTable();
   renderGantt();
+  renderRisksAndWatch();
   renderBuckets();
   updateFilterCount();
 }
 
 function renderHeader() {
-  document.getElementById('reportWeek').textContent = DATA.meta.reportWeek;
-  const freezeStart = new Date(DATA.meta.codeFreeze.start);
-  const today = new Date(DATA.meta.weekOf);
-  const diff = Math.ceil((freezeStart - today) / (1000*60*60*24));
-  const badge = document.getElementById('freezeBadge');
-  if (diff > 0) {
-    badge.textContent = `Code Freeze in ${diff} days (${DATA.meta.codeFreeze.start.slice(5)})`;
-  } else if (today <= new Date(DATA.meta.codeFreeze.end)) {
-    badge.textContent = 'Code Freeze Active';
-    badge.style.background = 'rgba(239,68,68,0.3)';
-  } else {
-    badge.textContent = 'Code Freeze Ended';
-    badge.style.background = 'rgba(34,197,94,0.15)';
-    badge.style.borderColor = 'rgba(34,197,94,0.3)';
-    badge.style.color = '#86efac';
+  let sub = DATA.meta.reportWeek;
+  if (DATA.meta.lastRefreshed) sub += ' · Last refreshed: ' + DATA.meta.lastRefreshed;
+  document.getElementById('reportWeek').textContent = sub;
+}
+
+function renderTldr() {
+  const box = document.getElementById('tldrBox');
+  const s = DATA.summary;
+  const inits = DATA.initiatives;
+
+  // --- Left column: top risks & decisions for leadership ---
+  const risks = (DATA.narrative && DATA.narrative.riskRegister) || [];
+  const watchItems = (DATA.narrative && DATA.narrative.watchList) || [];
+
+  let left = '<div class="es-snapshot">';
+  left += '<div class="es-label">Key Risks & Decisions</div>';
+
+  // Show risk register items (sorted: High first)
+  const sortedRisks = [...risks].sort((a,b) => {
+    const order = {High:0, Medium:1, Low:2};
+    return (order[a.severity]??3) - (order[b.severity]??3);
+  });
+
+  if (sortedRisks.length) {
+    sortedRisks.forEach(r => {
+      const sevColor = r.severity === 'High' ? 'var(--blocked)' : r.severity === 'Medium' ? 'var(--at-risk)' : 'var(--text-muted)';
+      const sevBg = r.severity === 'High' ? 'var(--blocked-bg)' : r.severity === 'Medium' ? 'var(--at-risk-bg)' : 'var(--not-started-bg)';
+      const actionTip = r.action ? r.action.replace(/"/g,'&quot;') : '';
+      left += '<div style="padding:5px 0;border-bottom:1px solid var(--border-light)">';
+      left += '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">';
+      left += '<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:1px 5px;border-radius:3px;background:'+sevBg+';color:'+sevColor+'">'+r.severity+'</span>';
+      left += '<span style="font-weight:600;font-size:12px">'+r.initiative+'</span>';
+      const teamBadge = r.team ? '<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:var(--not-started-bg);color:var(--text-muted);font-weight:600;letter-spacing:0.3px;text-transform:uppercase">'+r.team+'</span>' : '';
+      left += teamBadge;
+      if (r.owner) left += '<span style="font-size:10px;color:var(--text-muted);margin-left:auto">'+r.owner+'</span>';
+      left += '</div>';
+      left += '<div style="font-size:11px;color:var(--text);line-height:1.35;margin-top:2px" title="Action: '+actionTip+'">'+r.risk+'</div>';
+      left += '</div>';
+    });
   }
+
+  left += '</div>';
+
+  // --- Right column: movements + watch items ---
+  let right = '<div class="es-movements">';
+  right += '<div class="es-label">Movements This Week</div>';
+
+  const mvs = (DATA.narrative && DATA.narrative.movements) || [];
+  if (mvs.length) {
+    const mvOrder = (m) => {
+      if (m.to === 'LAUNCHED') return 0;
+      const good = {'ON TRACK':1,'IN TECH':1};
+      const bad = {'AT RISK':3,'BLOCKED':4};
+      if (good[m.to] && !good[m.from]) return 1;
+      if (bad[m.to]) return 3;
+      return 2;
+    };
+    const sorted = [...mvs].sort((a,b) => mvOrder(a) - mvOrder(b));
+
+    sorted.forEach(m => {
+      right += '<div class="es-mv-item">';
+      right += '<span class="es-mv-name">'+m.initiative+'</span>';
+      right += '<span class="es-mv-pills">';
+      right += '<span class="pill '+pillClass(m.from)+'">'+m.from+'</span>';
+      right += '<span class="es-mv-arrow">→</span>';
+      right += '<span class="pill '+pillClass(m.to)+'">'+m.to+'</span>';
+      right += '</span>';
+      if (m.detail) right += '<div style="width:100%;font-size:11px;color:var(--text-muted);line-height:1.3;margin-top:0">'+m.detail+'</div>';
+      right += '</div>';
+    });
+  } else {
+    right += '<div style="color:var(--text-muted);font-size:12px;padding:8px 0">No status changes this week.</div>';
+  }
+
+  // Watch items in right column, below movements
+  if (watchItems.length) {
+    right += '<div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border-light)">';
+    right += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);font-weight:600;margin-bottom:4px">Watch Items</div>';
+    watchItems.forEach(w => {
+      const text = typeof w === 'string' ? w : w.text;
+      const owner = (typeof w === 'object' && w.owner) ? w.owner : '';
+      const team = (typeof w === 'object' && w.team) ? w.team : '';
+      const meta = (owner || team) ? ' <span style="color:var(--text-muted);font-size:10px">('+(team?team:'')+(team&&owner?' · ':'')+owner+')</span>' : '';
+      right += '<div style="font-size:12px;padding:3px 0;border-bottom:1px solid var(--border-light);display:flex;align-items:flex-start;gap:4px"><span style="color:var(--in-tech);font-size:10px;margin-top:2px">●</span><span>'+text+meta+'</span></div>';
+    });
+    right += '</div>';
+  }
+
+  right += '</div>';
+
+  box.innerHTML = '<h2>Weekly Pulse</h2><div class="es-grid">'+left+right+'</div>';
 }
 
 function renderStats() {
   const s = DATA.summary;
-  const html = [
-    {v: s.total, l: 'Total', c: 'var(--text)'},
-    {v: s.activeThisQuarter, l: 'Active Q4', c: 'var(--accent)'},
-    {v: s.byStatus['ON TRACK']||0, l: 'On Track', c: 'var(--on-track)'},
-    {v: s.byStatus['AT RISK']||0, l: 'At Risk', c: 'var(--at-risk)'},
-    {v: s.byStatus['BLOCKED']||0, l: 'Blocked', c: 'var(--blocked)'},
-    {v: s.launched, l: 'Launched', c: 'var(--launched)'},
-    {v: s.pushedTo2027, l: 'Pushed to 2027', c: 'var(--pushed)'},
-  ].map(x => `<div class="stat-card"><div class="value" style="color:${x.c}">${x.v}</div><div class="label">${x.l}</div></div>`).join('');
+  const prev = DATA.prevSummary || null;
+  const items = [
+    {v: s.total, l: 'Total', c: 'var(--text)', pv: null, goodUp: true, status: ''},
+    {v: s.byStatus['ON TRACK']||0, l: 'On Track', c: 'var(--on-track)', pv: prev ? (prev.byStatus['ON TRACK']||0) : null, goodUp: true, status: 'ON TRACK'},
+    {v: s.byStatus['AT RISK']||0, l: 'At Risk', c: 'var(--at-risk)', pv: prev ? (prev.byStatus['AT RISK']||0) : null, goodUp: false, status: 'AT RISK'},
+    {v: s.byStatus['BLOCKED']||0, l: 'Blocked', c: 'var(--blocked)', pv: prev ? (prev.byStatus['BLOCKED']||0) : null, goodUp: false, status: 'BLOCKED'},
+    {v: s.byStatus['NOT STARTED']||0, l: 'Not Started', c: 'var(--not-started)', pv: prev ? (prev.byStatus['NOT STARTED']||0) : null, goodUp: false, status: 'NOT STARTED'},
+    {v: s.launched, l: 'Launched', c: 'var(--launched)', pv: prev ? prev.launched : null, goodUp: true, status: 'LAUNCHED'},
+  ];
+  const html = items.map(x => {
+    let deltaHtml = '';
+    if (x.pv !== null && x.pv !== x.v) {
+      const diff = x.v - x.pv;
+      const isGood = (diff > 0 && x.goodUp) || (diff < 0 && !x.goodUp);
+      const cls = isGood ? 'delta-up' : 'delta-down';
+      const arrow = diff > 0 ? '▲' : '▼';
+      deltaHtml = '<div class="delta '+cls+'">'+arrow+Math.abs(diff)+' vs last week</div>';
+    } else if (x.pv !== null) {
+      deltaHtml = '<div class="delta delta-neutral">No change</div>';
+    }
+    const isActive = currentStatus === x.status;
+    const activeClass = isActive ? ' active' : '';
+    const activeStyle = isActive ? 'border-color:'+x.c+';' : '';
+    return '<div class="stat-card'+activeClass+'" style="color:'+x.c+';'+activeStyle+'" onclick="filterByStatus(\''+x.status+'\')"><div class="value" style="color:'+x.c+'">'+x.v+'</div><div class="label">'+x.l+'</div>'+deltaHtml+'</div>';
+  }).join('');
   document.getElementById('statsBar').innerHTML = html;
+}
+
+function getMovementIcon(initName) {
+  const moves = (DATA.narrative && DATA.narrative.movements) || [];
+  const m = moves.find(x => x.initiative === initName);
+  if (!m) return '';
+  if (m.to === 'LAUNCHED') return '<span class="mv-icon mv-launch" title="Launched this week: '+m.detail.replace(/"/g,'&quot;')+'">&#9650;</span>';
+  const improved = ['BLOCKED','AT RISK'].includes(m.from) && ['ON TRACK','LAUNCHED'].includes(m.to);
+  const degraded = ['ON TRACK','NOT STARTED'].includes(m.from) && ['AT RISK','BLOCKED'].includes(m.to);
+  const started = m.from === 'NOT STARTED' && m.to === 'ON TRACK';
+  if (improved || started) return '<span class="mv-icon mv-up" title="Improved: '+m.from+' → '+m.to+'. '+m.detail.replace(/"/g,'&quot;')+'">&#9650;</span>';
+  if (degraded) return '<span class="mv-icon mv-down" title="Degraded: '+m.from+' → '+m.to+'. '+m.detail.replace(/"/g,'&quot;')+'">&#9660;</span>';
+  return '';
 }
 
 function teamColor(t) {
@@ -259,40 +1348,74 @@ function teamColor(t) {
   return map[t] || 'var(--text-muted)';
 }
 
+function teamColorRaw(t) {
+  const map = {Charlotte:'#4a7fb5',edX:'#c87a32',HEN:'#2d7a38',Affiliates:'#8a6aaa',Partnerships:'#a8892e',Product:'#6b6052'};
+  return map[t] || '#6b6052';
+}
+
+function filterByStatus(status) {
+  currentStatus = (currentStatus === status) ? '' : status;
+  document.getElementById('statusFilter').value = currentStatus;
+  renderStats();
+  renderTable();
+  renderGantt();
+  updateFilterCount();
+}
+
 function renderTeamNav() {
   const counts = {};
-  getActiveInits().forEach(i => { counts[i.team] = (counts[i.team]||0)+1; });
-  let html = `<button class="team-btn ${currentTeam==='all'?'active':''}" onclick="filterTeam('all')">All<span class="count">${getActiveInits().length}</span></button>`;
+  getAllInits().forEach(i => { counts[i.team] = (counts[i.team]||0)+1; });
+  const allActive = currentTeam === 'all';
+  let html = '<button class="team-btn '+(allActive?'active':'')+'" style="'+(allActive?'background:var(--accent);border-color:var(--accent);':'border-color:var(--border);')+'" onclick="filterTeam(\'all\')">All<span class="count">'+getAllInits().length+'</span></button>';
   DATA.teams.forEach(t => {
     const c = counts[t]||0;
-    if (c > 0) html += `<button class="team-btn ${currentTeam===t?'active':''}" onclick="filterTeam('${t}')">${t}<span class="count">${c}</span></button>`;
+    if (c > 0) {
+      const isActive = currentTeam === t;
+      const color = teamColorRaw(t);
+      const style = isActive ? 'background:'+color+';border-color:'+color+';color:#fff;' : 'border-color:'+color+'33;color:'+color+';';
+      html += '<button class="team-btn '+(isActive?'active':'')+'" style="'+style+'" onclick="filterTeam(\''+t+'\')">'+t+'<span class="count">'+c+'</span></button>';
+    }
   });
   document.getElementById('teamNav').innerHTML = html;
 }
 
-function getActiveInits() {
-  return DATA.initiatives.filter(i => i.phase !== 'LAUNCHED' && !isPushed(i));
-}
-
-function isPushed(i) {
-  return i.notes.includes('Not Q4 required') || (i.notes.includes('Pushed to') && i.notes.includes('2027'));
+function getAllInits() {
+  return DATA.initiatives;
 }
 
 function getFilteredInits() {
-  let inits = getActiveInits();
+  const sf = currentStatus || document.getElementById('statusFilter').value;
+  const pf = document.getElementById('phaseFilter').value;
+  const of = document.getElementById('ownerFilter').value;
+  let inits = getAllInits();
   if (currentTeam !== 'all') inits = inits.filter(i => i.team === currentTeam);
   const search = document.getElementById('searchBox').value.toLowerCase();
   if (search) inits = inits.filter(i => i.name.toLowerCase().includes(search) || i.bizOwner.toLowerCase().includes(search) || i.engLead.toLowerCase().includes(search));
-  const sf = document.getElementById('statusFilter').value;
-  if (sf) inits = inits.filter(i => i.status === sf);
-  const pf = document.getElementById('phaseFilter').value;
-  if (pf) inits = inits.filter(i => i.phase === pf);
-  // Sort
+  if (sf === 'LAUNCHED') {
+    inits = inits.filter(i => i.phase === 'LAUNCHED');
+  } else if (sf) {
+    inits = inits.filter(i => i.status === sf && i.phase !== 'LAUNCHED');
+  }
+  if (pf) {
+    inits = inits.filter(i => i.phase === pf);
+  }
+  if (of) {
+    inits = inits.filter(i => i.bizOwner === of);
+  }
+  const ef = document.getElementById('engLeadFilter').value;
+  if (ef) {
+    inits = inits.filter(i => i.engLead === ef);
+  }
   inits.sort((a,b) => {
-    let va = a[sortCol] || '', vb = b[sortCol] || '';
+    let va, vb;
+    if (sortCol === 'launch') {
+      va = a.milestones.launch || ''; vb = b.milestones.launch || '';
+    } else {
+      va = a[sortCol] || ''; vb = b[sortCol] || '';
+    }
     if (sortCol === 'status') {
-      const order = {'BLOCKED':0,'AT RISK':1,'ON TRACK':2,'NOT STARTED':3};
-      va = order[va] ?? 4; vb = order[vb] ?? 4;
+      const order = {'BLOCKED':0,'AT RISK':1,'ON TRACK':2,'NOT STARTED':3,'LAUNCHED':4};
+      va = order[va] ?? 5; vb = order[vb] ?? 5;
     }
     if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
     if (va < vb) return sortAsc ? -1 : 1;
@@ -303,6 +1426,7 @@ function getFilteredInits() {
 }
 
 function pillClass(status) {
+  if (status === 'IN TECH') return 'pill-in-tech';
   return 'pill-' + status.toLowerCase().replace(/\s+/g, '-');
 }
 
@@ -312,70 +1436,69 @@ function renderTable() {
     {key:'name',label:'Initiative'},
     {key:'team',label:'Team'},
     {key:'bizOwner',label:'Owner'},
+    {key:'engLead',label:'Eng Lead'},
     {key:'status',label:'Status'},
     {key:'phase',label:'Phase'},
-    {key:'techStart',label:'Tech Start',val:i=>i.milestones.techStart},
     {key:'launch',label:'Launch',val:i=>i.milestones.launch},
-    {key:'notes',label:'Latest Update'}
+    {key:'notes',label:'Key Updates'}
   ];
   let html = '<table><thead><tr>';
   cols.forEach(c => {
     const sorted = sortCol === c.key;
     const icon = sorted ? (sortAsc ? '▲' : '▼') : '▲';
-    html += `<th class="${sorted?'sorted':''}" onclick="doSort('${c.key}')">${c.label}<span class="sort-icon">${icon}</span></th>`;
+    html += '<th class="'+(sorted?'sorted':'')+'" onclick="doSort(\''+c.key+'\')">'+c.label+'<span class="sort-icon">'+icon+'</span></th>';
   });
   html += '</tr></thead><tbody>';
   inits.forEach(i => {
     const exp = expandedRows.has(i.id);
-    html += `<tr class="${exp?'expanded':''}" data-id="${i.id}">`;
-    // Name
-    html += `<td class="name-cell"><span class="init-name" onclick="toggleRow('${i.id}')">${i.name}</span>`;
+    const launched = i.phase === 'LAUNCHED';
+    const rowCls = (exp?'expanded ':'') + (launched?'launched-row ':'');
+    html += '<tr class="'+rowCls.trim()+'" data-id="'+i.id+'" onclick="toggleRow(\''+i.id+'\')" style="cursor:pointer">';
+    html += '<td class="name-cell">'+getMovementIcon(i.name)+'<span class="init-name">'+i.name+'</span>';
     if (i.autoInterpreted) html += '<span class="auto-tag">AUTO</span>';
     html += '</td>';
-    // Team
-    html += `<td><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team}</td>`;
-    // Owner
-    html += `<td>${i.bizOwner}</td>`;
-    // Status
-    html += `<td><span class="pill ${pillClass(i.status)}">${i.status}</span></td>`;
-    // Phase
-    html += `<td><span class="pill ${pillClass(i.phase === 'IN TECH' ? 'ON TRACK' : i.phase)}">${i.phase}</span></td>`;
-    // Tech Start
-    html += `<td>${cols[5].val(i)}</td>`;
-    // Launch
-    html += `<td>${cols[6].val(i)}</td>`;
-    // Notes (truncate to ~80 chars)
+    html += '<td style="color:'+teamColor(i.team)+';font-weight:600">'+i.team+'</td>';
+    html += '<td>'+i.bizOwner+'</td>';
+    html += '<td style="color:var(--text-muted)">'+(i.engLead||'TBD')+'</td>';
+    html += '<td><span class="pill '+pillClass(i.status)+'">'+i.status+'</span></td>';
+    html += '<td><span class="pill '+pillClass(i.phase)+'">'+i.phase+'</span></td>';
+    html += '<td>'+(i.milestones.launch||'TBD')+'</td>';
     const note = i.notes.length > 80 ? i.notes.slice(0,77)+'...' : i.notes;
-    html += `<td title="${i.notes.replace(/"/g,'&quot;')}">${note}</td>`;
+    html += '<td title="'+i.notes.replace(/"/g,'&quot;')+'">'+note+'</td>';
     html += '</tr>';
-    // Detail row
     if (exp) {
-      html += `<tr class="detail-row"><td colspan="${cols.length}"><div class="detail-content">`;
+      html += '<tr class="detail-row"><td colspan="'+cols.length+'"><div class="detail-content">';
       html += '<div class="detail-section"><h4>Milestones</h4><ul>';
       const ms = i.milestones;
-      const msNames = {creativeDone:'Creative Done',handoffToTech:'Handoff to Tech',techStart:'Tech Start',techEnd:'Tech End',uatDone:'UAT Done',launch:'Launch'};
+      const msNames = {creativeDone:'Creative Done',handoffToTech:'Handoff to Tech',techStart:'Tech Start',techEnd:'Tech Done',uatDone:'UAT Done',launch:'Launch'};
       Object.entries(msNames).forEach(([k,label]) => {
-        const v = ms[k];
-        const done = v && (v === 'Complete' || v === 'Q3' || v === 'Q2 rollover');
-        html += `<li>${label}: <strong>${v||'TBD'}</strong></li>`;
+        html += '<li>'+label+': <strong>'+(ms[k]||'TBD')+'</strong></li>';
       });
       html += '</ul>';
-      // Milestone completion %
-      const total_ms = Object.values(ms).filter(v => v && v !== 'N/A' && v !== 'TBD').length;
-      const done_ms = Object.values(ms).filter(v => v === 'Complete' || v === 'Q3' || v === 'Q2 rollover').length;
-      if (total_ms > 0) {
-        const pct = Math.round(done_ms/6*100);
-        html += `<div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Milestone completion: ${pct}% (${done_ms}/6)</div>`;
+      if (i.ticketProgress && i.ticketProgress.total > 0) {
+        const tp = i.ticketProgress;
+        const closed = (tp.done||0) + (tp.abandoned||0);
+        const pct = tp.pctComplete != null ? tp.pctComplete : Math.round(closed/tp.total*100);
+        html += '<div style="margin-top:8px">';
+        html += '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:3px"><span>Jira Epic Progress</span><span>'+closed+'/'+tp.total+' tickets ('+pct+'%)</span></div>';
+        html += '<div style="height:6px;background:var(--border-light);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:var(--on-track);border-radius:3px;transition:width 0.3s"></div></div>';
+        html += '</div>';
+      } else {
+        const done_ms = Object.values(ms).filter(v => v === 'Complete' || v === 'Q3' || v === 'Q2 rollover' || v === 'Q3 rollover').length;
+        const total_ms = Object.keys(ms).filter(k => ms[k] !== undefined).length || 6;
+        const pct = Math.round(done_ms/total_ms*100);
+        html += '<div style="margin-top:6px;font-size:11px;color:var(--text-muted)">Milestone progress: '+pct+'% ('+done_ms+'/'+total_ms+')</div>';
       }
       html += '</div>';
       html += '<div class="detail-section"><h4>Details</h4>';
-      html += `<p><strong>Eng Lead:</strong> ${i.engLead || 'TBD'}</p>`;
-      html += `<p><strong>Epic:</strong> ${i.epic || 'TBD'}</p>`;
-      html += `<p><strong>Notes:</strong> ${i.notes}</p>`;
-      html += `<p><strong>Last Updated:</strong> ${i.lastUpdated}</p>`;
-      html += '<div class="detail-links" style="margin-top:12px">';
-      if (i.prd && i.prd !== 'TBD' && !i.prd.startsWith('Draft')) html += `<a href="${i.prd}" target="_blank">PRD ↗</a>`;
-      if (i.epic && i.epic !== 'TBD') html += `<a href="https://redventures.atlassian.net/browse/${i.epic}" target="_blank">${i.epic} ↗</a>`;
+      html += '<p><strong>Eng Lead:</strong> '+(i.engLead||'TBD')+'</p>';
+      html += '<p><strong>Epic:</strong> '+(i.epic||'TBD')+'</p>';
+      html += '<p><strong>Notes:</strong> '+i.notes+'</p>';
+      html += '<p><strong>Last Updated:</strong> '+i.lastUpdated+'</p>';
+      html += '<div class="detail-links" style="margin-top:10px">';
+      if (i.prd && i.prd !== 'TBD' && !i.prd.startsWith('Draft')) html += '<a href="'+i.prd+'" target="_blank" onclick="event.stopPropagation()">PRD ↗</a>';
+      if (i.epic && i.epic !== 'TBD') html += '<a href="https://redventures.atlassian.net/browse/'+i.epic+'" target="_blank" onclick="event.stopPropagation()">'+i.epic+' ↗</a>';
+      if (i.slackChannel) html += '<a class="slack-link" href="https://redventures.slack.com/archives/'+i.slackChannel+'" target="_blank" onclick="event.stopPropagation()" title="Open Slack channel"><svg viewBox="0 0 24 24"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>Slack</a>';
       html += '</div></div></div></td></tr>';
     }
   });
@@ -386,26 +1509,21 @@ function renderTable() {
 
 function renderGantt() {
   const inits = getFilteredInits();
-  // Date range: Oct 27 (S30 start) to Mar 1 2027
   const rangeStart = new Date('2026-10-26');
   const rangeEnd = new Date('2027-03-08');
   const totalDays = (rangeEnd - rangeStart) / (1000*60*60*24);
   const freezeStart = new Date(DATA.meta.codeFreeze.start);
   const freezeEnd = new Date(DATA.meta.codeFreeze.end);
-  const today = new Date(DATA.meta.weekOf);
+  const today = new Date();
 
   function pct(d) { return Math.max(0, Math.min(100, ((d - rangeStart) / (1000*60*60*24)) / totalDays * 100)); }
 
-  // Week labels
   const weeks = [];
   let d = new Date(rangeStart);
-  while (d <= rangeEnd) {
-    weeks.push(d.toISOString().slice(5,10));
-    d.setDate(d.getDate() + 7);
-  }
+  while (d <= rangeEnd) { weeks.push(d.toISOString().slice(5,10)); d.setDate(d.getDate() + 7); }
 
   let html = '<div class="gantt-header"><div class="label">Initiative</div><div class="gantt-weeks">';
-  weeks.forEach(w => html += `<span>${w}</span>`);
+  weeks.forEach(w => html += '<span>'+w+'</span>');
   html += '</div></div>';
 
   inits.forEach(i => {
@@ -413,62 +1531,101 @@ function renderGantt() {
     let start = parseGanttDate(ms.techStart);
     let end = parseGanttDate(ms.launch) || parseGanttDate(ms.techEnd);
     if (!start || !end) { start = today; end = today; }
-
     const left = pct(start);
     const width = Math.max(1, pct(end) - left);
     const color = teamColor(i.team);
     const statusBorder = i.status === 'AT RISK' ? 'border:2px solid var(--at-risk)' : i.status === 'BLOCKED' ? 'border:2px solid var(--blocked)' : '';
-
-    html += `<div class="gantt-row">`;
-    html += `<div class="gantt-label"><span class="team-dot" style="background:${color}"></span>${i.name}</div>`;
-    html += `<div class="gantt-track" style="position:relative">`;
-    // Freeze zone
-    html += `<div class="gantt-freeze" style="left:${pct(freezeStart)}%;width:${pct(freezeEnd)-pct(freezeStart)}%"></div>`;
-    // Today line
-    html += `<div class="gantt-today" style="left:${pct(today)}%"></div>`;
-    // Bar
-    html += `<div class="gantt-bar" style="left:${left}%;width:${width}%;background:${color};opacity:0.7;${statusBorder}" title="${i.name}: ${ms.techStart} → ${ms.launch}"></div>`;
+    const gExp = expandedGanttRows.has(i.id);
+    html += '<div class="gantt-row" onclick="toggleGanttRow(\''+i.id+'\')">';
+    html += '<div class="gantt-label" style="color:'+color+';font-weight:600">'+i.name+'</div>';
+    html += '<div class="gantt-track" style="position:relative">';
+    html += '<div class="gantt-freeze" style="left:'+pct(freezeStart)+'%;width:'+(pct(freezeEnd)-pct(freezeStart))+'%"></div>';
+    // Thanksgiving freeze band
+    if (DATA.meta.holidays && DATA.meta.holidays.thanksgiving) {
+      const tgStart = new Date(DATA.meta.holidays.thanksgiving[0]);
+      const tgEnd = new Date(DATA.meta.holidays.thanksgiving[DATA.meta.holidays.thanksgiving.length-1]);
+      tgEnd.setDate(tgEnd.getDate()+1); // inclusive end
+      html += '<div class="gantt-freeze" style="left:'+pct(tgStart)+'%;width:'+(pct(tgEnd)-pct(tgStart))+'%" title="Thanksgiving (Nov 26-27)"></div>';
+    }
+    html += '<div class="gantt-today" style="left:'+pct(today)+'%"></div>';
+    html += '<div class="gantt-bar" style="left:'+left+'%;width:'+width+'%;background:'+color+';opacity:0.65;'+statusBorder+'" title="'+i.name+': '+ms.techStart+' → '+ms.launch+'"></div>';
+    // Milestone dots only shown in expanded dropdown rows
     html += '</div></div>';
+    if (gExp) {
+      const msDots = [
+        {key:'creativeDone',label:'Creative Done'},
+        {key:'handoffToTech',label:'Handoff to Tech'},
+        {key:'techStart',label:'Tech Start'},
+        {key:'techEnd',label:'Tech Done'},
+        {key:'uatDone',label:'UAT Done'},
+        {key:'launch',label:'Launch'}
+      ];
+      // Milestone dots row aligned to same date axis
+      html += '<div class="gantt-row gantt-ms-row" style="cursor:default;min-height:28px">';
+      html += '<div class="gantt-label" style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px">Milestones</div>';
+      html += '<div class="gantt-track" style="position:relative;height:20px">';
+      msDots.forEach(md => {
+        const val = ms[md.key];
+        const dt = parseGanttDate(val);
+        if (!dt) return;
+        const dotLeft = pct(dt);
+        const isDone = val === 'Complete' || val === 'Q3' || val === 'Q2 rollover' || val === 'Q3 rollover';
+        const isLaunch = md.key === 'launch';
+        const cls = isLaunch ? 'ms-launch' : isDone ? 'ms-done' : 'ms-pending';
+        html += '<div class="gantt-dot '+cls+'" style="left:'+dotLeft+'%" title="'+md.label+': '+(val||'TBD')+'"></div>';
+      });
+      html += '</div></div>';
+      // Milestone detail list
+      const msNames = {creativeDone:'Creative Done',handoffToTech:'Handoff to Tech',techStart:'Tech Start',techEnd:'Tech Done',uatDone:'UAT Done',launch:'Launch'};
+      html += '<div class="gantt-milestones"><ul>';
+      Object.entries(msNames).forEach(([k,label]) => {
+        html += '<li><span class="ms-label">'+label+'</span><span class="ms-value">'+(ms[k]||'TBD')+'</span></li>';
+      });
+      html += '</ul></div>';
+    }
   });
+  // Gantt legend
+  html += '<div style="display:flex;gap:16px;padding:8px 12px;font-size:10px;color:var(--text-muted);border-top:1px solid var(--border-light);align-items:center">';
+  html += '<span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:2px;background:var(--accent);display:inline-block"></span>Today</span>';
+  html += '<span style="display:flex;align-items:center;gap:4px"><span style="width:12px;height:8px;background:repeating-linear-gradient(45deg,rgba(192,57,43,0.06),rgba(192,57,43,0.06) 2px,transparent 2px,transparent 5px);border:1px solid rgba(192,57,43,0.15);display:inline-block;border-radius:2px"></span>Code Freeze / Holiday</span>';
+  html += '<span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:var(--on-track);display:inline-block"></span>Done</span>';
+  html += '<span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:var(--text-muted);display:inline-block"></span>Pending</span>';
+  html += '<span style="display:flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block"></span>Launch</span>';
+  html += '</div>';
+
   document.getElementById('ganttView').innerHTML = html;
 }
 
 function parseGanttDate(s) {
   if (!s || s === 'TBD' || s === 'N/A') return null;
   if (s === 'Complete' || s === 'Q3' || s === 'Q2 rollover' || s === 'Q3 rollover') return new Date('2026-10-01');
-  // Try "Nov 6" format
   const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
   const m = s.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d+)$/);
   if (m) {
-    const yr = months[m[1]] >= 10 ? 2026 : 2027; // Oct-Dec = 2026, Jan-Mar = 2027
+    const yr = months[m[1]] >= 10 ? 2026 : 2027;
     return new Date(yr, months[m[1]], parseInt(m[2]));
   }
-  // Try ISO date
   const d = new Date(s);
   return isNaN(d) ? null : d;
 }
 
+function findInitByName(name) {
+  return DATA.initiatives.find(i => i.name === name || name.includes(i.name) || i.name.includes(name));
+}
+
+function slackLinkHtml(channelId) {
+  if (!channelId) return '';
+  return '<a class="slack-link" href="https://redventures.slack.com/archives/'+channelId+'" target="_blank"><svg viewBox="0 0 24 24"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>Slack</a>';
+}
+
+function renderRisksAndWatch() {
+  // Risks & watch items are now merged into the Executive Summary
+  document.getElementById('risksAndWatch').innerHTML = '';
+}
+
 function renderBuckets() {
-  // Launched
-  const launched = DATA.initiatives.filter(i => i.phase === 'LAUNCHED');
-  if (launched.length) {
-    let html = '<div class="bucket"><h3><span class="pill pill-launched">LAUNCHED</span> Shipped This Quarter</h3><div class="bucket-grid">';
-    launched.forEach(i => {
-      html += `<div class="bucket-card"><div class="card-name">${i.name}</div><div class="card-meta"><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team} · ${i.bizOwner} · ${i.notes}</div></div>`;
-    });
-    html += '</div></div>';
-    document.getElementById('launchedBucket').innerHTML = html;
-  }
-  // Pushed
-  const pushed = DATA.initiatives.filter(i => isPushed(i));
-  if (pushed.length) {
-    let html = `<div class="bucket"><h3><span style="color:var(--pushed)">↗</span> Pushed to 2027 (${pushed.length})</h3><div class="bucket-grid">`;
-    pushed.forEach(i => {
-      html += `<div class="bucket-card"><div class="card-name">${i.name}</div><div class="card-meta"><span class="team-dot" style="background:${teamColor(i.team)}"></span>${i.team} · ${i.bizOwner} · ${i.notes}</div></div>`;
-    });
-    html += '</div></div>';
-    document.getElementById('pushedBucket').innerHTML = html;
-  }
+  // Launched initiatives are now shown in the main table — no separate bucket needed
+  document.getElementById('launchedBucket').innerHTML = '';
 }
 
 function filterTeam(t) {
@@ -498,17 +1655,48 @@ function toggleRow(id) {
   renderTable();
 }
 
+function toggleGanttRow(id) {
+  if (expandedGanttRows.has(id)) expandedGanttRows.delete(id);
+  else expandedGanttRows.add(id);
+  renderGantt();
+}
+
 function updateFilterCount() {
-  const total = getActiveInits().length;
+  const total = getAllInits().length;
   const filtered = getFilteredInits().length;
   const el = document.getElementById('filterCount');
-  if (filtered < total) el.textContent = `Showing ${filtered} of ${total}`;
+  if (filtered < total) el.textContent = 'Showing ' + filtered + ' of ' + total;
   else el.textContent = '';
 }
 
 document.getElementById('searchBox').addEventListener('input', () => { renderTable(); renderGantt(); });
 document.getElementById('statusFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
 document.getElementById('phaseFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
+document.getElementById('ownerFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
+document.getElementById('engLeadFilter').addEventListener('change', () => { renderTable(); renderGantt(); });
+
+function populateOwnerFilter() {
+  const owners = new Set();
+  const leads = new Set();
+  DATA.initiatives.forEach(i => {
+    if (i.bizOwner) owners.add(i.bizOwner);
+    if (i.engLead) leads.add(i.engLead);
+  });
+  const sel = document.getElementById('ownerFilter');
+  [...owners].sort().forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o;
+    opt.textContent = o;
+    sel.appendChild(opt);
+  });
+  const sel2 = document.getElementById('engLeadFilter');
+  [...leads].sort().forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o;
+    opt.textContent = o;
+    sel2.appendChild(opt);
+  });
+}
 
 init();
 </script>
